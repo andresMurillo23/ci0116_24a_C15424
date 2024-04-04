@@ -1,1 +1,5 @@
-# ci0116_24a_C15424
+# Analisis de algoritmos y estructuras de datos
+## Curso CI-0116-2024
+
+- Autor: Andres Murillo Murillo
+- Carnet: C15424
