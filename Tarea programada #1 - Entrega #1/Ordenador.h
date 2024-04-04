@@ -1,6 +1,6 @@
 #ifndef Ordenador_h
 #define Ordenador_h
-#include <algorthm>
+#include <algorithm>
 
 class Ordenador{
 	private:
@@ -57,8 +57,8 @@ void Ordenador::seleccion(int *A, int n) {
 			if (A[j] < A[m]) {
 				m=j;
 			}
-			std::swap(A[i], A[m]);
 		}
+		std::swap(A[i], A[m]);
 	}
 }
 
