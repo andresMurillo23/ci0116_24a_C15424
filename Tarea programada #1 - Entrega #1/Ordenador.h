@@ -6,7 +6,8 @@ class Ordenador{
 	private:
     // Defina aqui los metodos auxiliares de los algoritmos de ordenamiento solamente.
     // Puede definir cuantos metodos quiera.
-	
+	void merge(int *A, int p, int q, int r);
+    void mergeSortAux(int *A, int p, int r);
 	public:
 	Ordenador(){};
 	~Ordenador(){};
@@ -101,4 +102,43 @@ void Ordenador::seleccion(int *A, int n) {
 // 4   MERGE-SORT(A, q + 1, r)
 // 5   MERGE(A, p, q, r)
 
+void Ordenador::merge(int *A, int p, int q, int r) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    int L[n1], R[n2];
 
+    for (int i = 0; i < n1; i++)
+        L[i] = A[p + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = A[q + 1 + j];
+
+    int i = 0, j = 0, k = p;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            A[k++] = L[i++];
+        } else {
+            A[k++] = R[j++];
+        }
+    }
+
+    while (i < n1) {
+        A[k++] = L[i++];
+    }
+
+    while (j < n2) {
+        A[k++] = R[j++];
+    }
+}
+
+void Ordenador::mergeSortAux(int *A, int p, int r) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        mergeSortAux(A, p, q);
+        mergeSortAux(A, q + 1, r);
+        merge(A, p, q, r);
+    }
+}
+
+void Ordenador::mergesort(int *A, int n) {
+    mergeSortAux(A, 0, n - 1);
+}
