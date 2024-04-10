@@ -14,14 +14,11 @@ int main() {
     std::uniform_int_distribution<> dis(-1000000, 1000000); // Números entre -1,000,000 y 1,000,000
 
     for (int i = 0; i < num_arreglos; ++i) {
-        // Crear un nuevo arreglo dinámicamente para evitar el uso de VLA (Variable Length Array) que no es parte del estándar C++
         int* arreglo = new int[tam_arreglo];
-
         // Llenar el arreglo con números aleatorios
         for (int j = 0; j < tam_arreglo; ++j) {
             arreglo[j] = dis(gen);
         }
-
         // Medir el tiempo de ejecución del algoritmo de ordenamiento
         auto start = std::chrono::high_resolution_clock::now(); // Iniciar el temporizador
         ordenador.insercion(arreglo, tam_arreglo); // Llamar al algoritmo de ordenamiento
