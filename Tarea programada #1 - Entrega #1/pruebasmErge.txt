@@ -1,0 +1,26 @@
+MERGESORT
+Array 6 tama;o 50000
+Duraci├│n de ejecuci├│n 1: 5.296 ms
+Duraci├│n de ejecuci├│n 2: 5.819 ms
+Duraci├│n de ejecuci├│n 3: 5.664 ms
+Duraci├│n de ejecuci├│n 4: 5.248 ms
+Duraci├│n de ejecuci├│n 5: 5.702 ms
+AHORA CON 100000
+Duraci├│n de ejecuci├│n 1: 11.141 ms
+Duraci├│n de ejecuci├│n 2: 11.264 ms
+Duraci├│n de ejecuci├│n 3: 11.254 ms
+Duraci├│n de ejecuci├│n 4: 10.92 ms
+Duraci├│n de ejecuci├│n 5: 11.824 ms
+150000
+Duraci├│n de ejecuci├│n 1: 17.575 ms
+Duraci├│n de ejecuci├│n 2: 17.52 ms
+Duraci├│n de ejecuci├│n 3: 17.917 ms
+Duraci├│n de ejecuci├│n 4: 17.922 ms
+Duraci├│n de ejecuci├│n 5: 17.384 ms
+200000
+Duracion de ejecuci├│n 1: 23.431 ms
+Duracion de ejecuci├│n 2: 23.05 ms
+Duracion de ejecuci├│n 3: 25.041 ms
+Duracion de ejecuci├│n 4: 23.902 ms
+Duracion de ejecuci├│n 5: 23.561 ms
+
