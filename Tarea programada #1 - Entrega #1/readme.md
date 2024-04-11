@@ -1,6 +1,6 @@
 # Tarea Programada I
 
-#### Esta tarea consta de tres algoritmos, seleccion, insercion y mezcla, los cuales fueron sometidos a pruebas para observar cual es el comportamiento de estos para llegar a ciertas conclusiones.
+Esta tarea consta de tres algoritmos, seleccion, insercion y mezcla, los cuales fueron sometidos a pruebas para observar cual es el comportamiento de estos para llegar a ciertas conclusiones.
 
 ## Algoritmos Implementados
 ### Seleccion
@@ -66,9 +66,8 @@ Estos pseudocodigos fueron obtenidos del libro Introduction to Algorithms, IV ed
 
 Para la realizacion de pruebas se hizo un main en el cual cambiando la constante creada ```const int tam_arreglo``` por los valores de prueba que son 50000, 100000, 150000, y 200000.
 ### Grafica de resultados de las pruebas
+
 ![Descripción de la imagen](Grafico/Grafico.svg)
-
-
 
 ### Compilacion
 ```
