@@ -2,6 +2,6 @@
 bin
 build
 doc
-sh
-exe
-docx
+.sh
+.exe
+.docx
