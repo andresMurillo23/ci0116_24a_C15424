@@ -5,8 +5,8 @@
 
 int main() {
     Ordenador ordenador;
-    const int num_arreglos = 5;
-    const int tam_arreglo = 200000; // Tamaño del arreglo
+    const int num_arreglos = 1;
+    const int tam_arreglo = 25000; // Tamaño del arreglo
 
     // Generar números aleatorios
     std::random_device rd;
@@ -18,11 +18,12 @@ int main() {
         // Llenar el arreglo con números aleatorios
         for (int j = 0; j < tam_arreglo; ++j) {
             arreglo[j] = dis(gen);
+            
         }
 
         // Medir el tiempo de ejecución del algoritmo de ordenamiento
         auto start = std::chrono::high_resolution_clock::now(); // Iniciar el temporizador
-        ordenador.insercion(arreglo, tam_arreglo); // Llamar al algoritmo de ordenamiento
+        ordenador.seleccion(arreglo, tam_arreglo); // Llamar al algoritmo de ordenamiento
         auto end = std::chrono::high_resolution_clock::now(); // Detener el temporizador
 
         // Calcular la duración en milisegundos
