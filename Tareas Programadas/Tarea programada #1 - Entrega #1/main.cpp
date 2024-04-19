@@ -7,6 +7,7 @@ int main() {
     Ordenador ordenador;
     const int num_arreglos = 1;
     const int tam_arreglo = 25000;
+    std::cout << "Andres Murillo Murillo C15424 " << std::endl;
 
     // Generar números aleatorios
     std::random_device rd;

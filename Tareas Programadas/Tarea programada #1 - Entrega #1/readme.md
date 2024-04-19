@@ -64,7 +64,13 @@ Estos pseudocodigos fueron obtenidos del libro Introduction to Algorithms, IV ed
 
 ### Pruebas
 
-Para la realizacion de pruebas se hizo un main en el cual cambiando la constante creada ```const int tam_arreglo``` por los valores de prueba que son 50000, 100000, 150000, y 200000.
+Para la realizacion de pruebas se hizo un main en el cual cambiando la constante creada ```const int tam_arreglo``` por los valores de prueba que son 50000, 100000, 150000, y 200000. Ademas para probar la implementacion de otros algoritmos de mezcla se debe realizar el llamado a los metodo ya sea `seleccion`, `insercion` o `mezcla` en la siguiente parte del codigo:
+```c
+    auto start = std::chrono::high_resolution_clock::now();
+    // Se rebe realizar el cambio aca para probar los otros metodos
+    ordenador.seleccion(arreglo, tam_arreglo);
+    auto end = std::chrono::high_resolution_clock::now();
+````
 ### Grafica de resultados de las pruebas
 
 ![Descripción de la imagen](Grafico/Grafico.svg)
