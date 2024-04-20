@@ -12,6 +12,9 @@ int main() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(-1000000, 1000000); //Rango de los numeros 
 
+    // Imprimir los datos de la tarea
+    std::cout << ordenador.ImprimirDatosDeTarea() << std::endl;
+    
     for (int i = 0; i < num_arreglos; ++i) {
         int* arreglo = new int[tam_arreglo];
         for (int j = 0; j < tam_arreglo; ++j) {

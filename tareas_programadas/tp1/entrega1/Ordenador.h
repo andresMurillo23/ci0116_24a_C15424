@@ -24,13 +24,16 @@ class Ordenador{
 	void heapsort(int *A, int n);
 	void quicksort(int *A, int n);
 	void radixsort(int *A, int n);
-
-  std::string ImprimirDatosDeTarea() const {
-    return "c15424 Tarea 1 Etapa 1.";
-  }
+  std::string ImprimirDatosDeTarea() const;
   
 };
 #endif
+
+std::string Ordenador::ImprimirDatosDeTarea() const {
+  // Retorna una cadena con los detalles de la tarea.
+  return "c15424 Tarea 1 Etapa 1.";
+}
+
 void Ordenador::insercion(int *A, int n) {
   // Algoritmo de inserción: Ordena los elementos uno por uno.
   // key: elemento actual a ser insertado en la parte ordenada del arreglo.
