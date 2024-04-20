@@ -1,5 +1,6 @@
 #ifndef Ordenador_h
 #define Ordenador_h
+#include <string>
 #include <algorithm>
 
 class Ordenador{
@@ -8,6 +9,8 @@ class Ordenador{
   // Puede definir cuantos metodos quiera.
 	void merge(int *A, int p, int q, int r);
   void mergeSortAux(int *A, int p, int r);
+
+
 	public:
 	Ordenador(){};
 	~Ordenador(){};
@@ -21,6 +24,11 @@ class Ordenador{
 	void heapsort(int *A, int n);
 	void quicksort(int *A, int n);
 	void radixsort(int *A, int n);
+
+  std::string ImprimirDatosDeTarea() const {
+    return "c15424 Tarea 1 Etapa 1.";
+  }
+  
 };
 #endif
 void Ordenador::insercion(int *A, int n) {

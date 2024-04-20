@@ -7,8 +7,6 @@ int main() {
     Ordenador ordenador;
     const int num_arreglos = 1;
     const int tam_arreglo = 25000;
-    std::cout << "Andres Murillo Murillo C15424 " << std::endl;
-
     // Generar números aleatorios
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -19,7 +17,6 @@ int main() {
         for (int j = 0; j < tam_arreglo; ++j) {
             arreglo[j] = dis(gen);
         }
-
         // Medir el tiempo de ejecución del algoritmo de ordenamiento
         auto start = std::chrono::high_resolution_clock::now();
         ordenador.seleccion(arreglo, tam_arreglo);
@@ -29,6 +26,8 @@ int main() {
         std::cout << "Duracion de ejecucion " << i + 1 << ": " << duration.count() << " ms" << std::endl;
         delete[] arreglo;
     }
+
+    return 0;
 
     return 0;
 }
