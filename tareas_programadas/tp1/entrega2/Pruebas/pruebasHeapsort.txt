@@ -1,0 +1,24 @@
+50000
+Duracion de ejecucion 1: 9.569 ms
+Duracion de ejecucion 2: 10.317 ms
+Duracion de ejecucion 3: 11.479 ms
+Duracion de ejecucion 4: 11.899 ms
+Duracion de ejecucion 5: 11.523 ms
+100000
+Duracion de ejecucion 1: 21.864 ms
+Duracion de ejecucion 2: 22.047 ms
+Duracion de ejecucion 3: 22.508 ms
+Duracion de ejecucion 4: 22.128 ms
+Duracion de ejecucion 5: 22.384 ms
+150000
+Duracion de ejecucion 1: 33.88 ms
+Duracion de ejecucion 2: 35.54 ms
+Duracion de ejecucion 3: 35.571 ms
+Duracion de ejecucion 4: 34.345 ms
+Duracion de ejecucion 5: 35.365 ms
+200000
+Duracion de ejecucion 1: 47.661 ms
+Duracion de ejecucion 2: 47.728 ms
+Duracion de ejecucion 3: 47.096 ms
+Duracion de ejecucion 4: 46.901 ms
+Duracion de ejecucion 5: 48.033 ms
