@@ -2,6 +2,7 @@
 #define Ordenador_h
 #include <string>
 #include <algorithm>
+#include <cmath>
 
 class Ordenador{
 	private:
@@ -16,7 +17,7 @@ class Ordenador{
 
   void quickSortAux(int *A, int p, int r);
   int partition(int *A, int p, int r);
-  void countSort(int *A, int n, int exp);
+  void countSort(int *A, int n, int exp, int base);
   void radixSortAux(int *A, int n);
 
 	public:
@@ -190,39 +191,38 @@ void Ordenador::quicksort(int *A, int n) {
   quickSortAux(A, 0, n - 1);  // Inicia el quicksort desde el primer hasta el último elemento
 }
 
-void Ordenador::countSort(int *A, int n, int exp) {
-  int output[n];  // Arreglo de salida
-  int i, count[10] = {0};  // Contador para los dígitos
+void Ordenador::countSort(int *A, int n, int exp, int base) {
+  std::vector<int> output(n);
+  std::vector<int> count(base, 0);
 
-  // Cuenta la ocurrencia de cada dígito
-  for (i = 0; i < n; i++) {
-    count[(A[i] / exp) % 10]++;
+  for (int i = 0; i < n; i++) {
+    int index = (A[i] / exp) % base;
+    count[index]++;
   }
 
-  // Cambia count para que contenga las posiciones acumuladas en output
-  for (i = 1; i < 10; i++) {
+  for (int i = 1; i < base; i++) {
     count[i] += count[i - 1];
   }
 
-  // Construye el arreglo de salida
-  for (i = n - 1; i >= 0; i--) {
-    output[count[(A[i] / exp) % 10] - 1] = A[i];
-    count[(A[i] / exp) % 10]--;
+  for (int i = n - 1; i >= 0; i--) {
+    int index = (A[i] / exp) % base;
+    output[count[index] - 1] = A[i];
+    count[index]--;
   }
 
-  // Copia el arreglo de salida a A
-  for (i = 0; i < n; i++)
+  for (int i = 0; i < n; i++) {
     A[i] = output[i];
+  }
 }
 
 void Ordenador::radixSortAux(int *A, int n) {
-  int m = *std::max_element(A, A + n);  // Encuentra el máximo para determinar el número de dígitos
-  // Llama a countSort para cada dígito
-  for (int exp = 1; m / exp > 0; exp *= 10) {
-    countSort(A, n, exp);
+  int m = *std::max_element(A, A + n);
+  int base = std::pow(2, std::ceil(std::log2(n)));  // Calcula la base como 2^(ceil(log2(n)))
+
+  for (int exp = 1; m / exp > 0; exp *= base) {
+    countSort(A, n, exp, base);
   }
 }
-
 void Ordenador::radixsort(int *A, int n) {
   radixSortAux(A, n);  // Inicia el proceso de radix sort
 }

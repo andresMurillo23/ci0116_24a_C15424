@@ -10,7 +10,7 @@ int main() {
     // Generar números aleatorios
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 2000000); //Rango de los numeros 
+    std::uniform_int_distribution<> dis(0, 10000); //Rango de los numeros 
 
     // Imprimir los datos de la tarea
     // std::cout << ordenador.ImprimirDatosDeTarea() << std::endl;
@@ -22,7 +22,7 @@ int main() {
         }
         // Medir el tiempo de ejecución del algoritmo de ordenamiento
         auto start = std::chrono::high_resolution_clock::now();
-        ordenador.heapsort(arreglo, tam_arreglo);
+        ordenador.radixsort(arreglo, tam_arreglo);
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> duration = end - start;
 
