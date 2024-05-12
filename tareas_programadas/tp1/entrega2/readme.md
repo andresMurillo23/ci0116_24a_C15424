@@ -1,9 +1,9 @@
-# Tarea Programada I
+# Tarea Programada I, Entrega II
 
 Esta tarea consta de tres algoritmos, seleccion, insercion y mezcla, los cuales fueron sometidos a pruebas para observar cual es el comportamiento de estos para llegar a ciertas conclusiones.
 
 ## Algoritmos Implementados
-### Seleccion
+### SELECCION
 ```
 SELECTION-SORT(A, n)
 1 for i = 1 to n - 1
@@ -15,7 +15,7 @@ SELECTION-SORT(A, n)
 7     swap(A[i], A[m])
 ```
 
-### Insercion 
+### INSERCION 
 ```
 INSERTION-SORT(A)
 1 for j = 2 to A.length
@@ -28,7 +28,7 @@ INSERTION-SORT(A)
 8   A[i + 1] = key
 ```
 
-### Merge
+### MERGE
 ```
 MERGE(A, p, q, r)
 

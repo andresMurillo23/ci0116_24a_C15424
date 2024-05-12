@@ -1,7 +1,7 @@
-.vscode
-bin
-build
-doc
-.sh
-.exe
-.docx
+.vscode/
+bin/
+build/
+doc/
+*.sh
+*.exe
+*.docx

@@ -17,8 +17,8 @@ Duracion de ejecucion 3: 3.781 ms
 Duracion de ejecucion 4: 3.086 ms
 Duracion de ejecucion 5: 3.638 ms
 200000
-Duracion de ejecucion 1: 9.495 ms
-Duracion de ejecucion 2: 8.68 ms
-Duracion de ejecucion 3: 8.858 ms
-Duracion de ejecucion 4: 9.295 ms
-Duracion de ejecucion 5: 9.24 ms
+Duracion de ejecucion 1: 3.566 ms
+Duracion de ejecucion 2: 3.185 ms
+Duracion de ejecucion 3: 4.638 ms
+Duracion de ejecucion 4: 4.715 ms
+Duracion de ejecucion 5: 4.114 ms
