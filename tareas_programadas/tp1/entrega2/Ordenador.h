@@ -34,13 +34,12 @@ class Ordenador{
 	void quicksort(int *A, int n);
 	void radixsort(int *A, int n);
   std::string ImprimirDatosDeTarea() const;
-  
 };
 #endif
 
 std::string Ordenador::ImprimirDatosDeTarea() const {
   // Retorna una cadena con los detalles de la tarea.
-  return "c15424 Tarea 1 Etapa 1.";
+  return "c15424 Tarea 1 Etapa 2.";
 }
 
 void Ordenador::insercion(int *A, int n) {
@@ -159,16 +158,16 @@ void Ordenador::heapsort(int *A, int n) {
   buildMaxHeap(A, n);  // Primero construye un max-heap
   // Uno por uno extrae elementos del heap
   for (int i = n - 1; i >= 0; i--) {
-    std::swap(A[0], A[i]);  // Mueve la raíz actual al final
-    maxHeapify(A, 0, i);  // Reduce el heap y vuelve a heapify
+    std::swap(A[0], A[i]);   // Mueve la raíz actual al final
+    maxHeapify(A, 0, i);   // Reduce el heap y vuelve a heapify
   }
 }
 
 void Ordenador::quickSortAux(int *A, int p, int r) {
   if (p < r) {
-    int q = partition(A, p, r);  // Particiona y encuentra el índice del pivote
-    quickSortAux(A, p, q - 1);  // Ordena la sublista izquierda
-    quickSortAux(A, q + 1, r);  // Ordena la sublista derecha
+    int q = partition(A, p, r);   // Particiona y encuentra el índice del pivote
+    quickSortAux(A, p, q - 1);   // Ordena la sublista izquierda
+    quickSortAux(A, q + 1, r);   // Ordena la sublista derecha
   }
 }
 
@@ -191,38 +190,47 @@ void Ordenador::quicksort(int *A, int n) {
   quickSortAux(A, 0, n - 1);  // Inicia el quicksort desde el primer hasta el último elemento
 }
 
+// Método para realizar Counting Sort como parte del Radix Sort
 void Ordenador::countSort(int *A, int n, int exp, int base) {
-  std::vector<int> output(n);
-  std::vector<int> count(base, 0);
+  std::vector<int> output(n);  // Vector de salida ordenada
+  std::vector<int> count(base, 0);  // Vector de conteo
 
+  // Cuenta las ocurrencias de cada dígito
   for (int i = 0; i < n; i++) {
     int index = (A[i] / exp) % base;
     count[index]++;
   }
 
+  // Acumula los conteos para obtener las posiciones finales
   for (int i = 1; i < base; i++) {
     count[i] += count[i - 1];
   }
 
+  // Construye el array de salida
   for (int i = n - 1; i >= 0; i--) {
     int index = (A[i] / exp) % base;
     output[count[index] - 1] = A[i];
     count[index]--;
   }
 
+  // Copia el resultado ordenado de vuelta al array original
   for (int i = 0; i < n; i++) {
     A[i] = output[i];
   }
 }
 
+// Método auxiliar para preparar y ejecutar el Radix Sort
 void Ordenador::radixSortAux(int *A, int n) {
-  int m = *std::max_element(A, A + n);
-  int base = std::pow(2, std::ceil(std::log2(n)));  // Calcula la base como 2^(ceil(log2(n)))
+  int m = *std::max_element(A, A + n);   // Encuentra el elemento máximo
+  int base = std::pow(2, std::ceil(std::log2(n)));   // Calcula la base
 
+  // Realiza Counting Sort para cada dígito
   for (int exp = 1; m / exp > 0; exp *= base) {
     countSort(A, n, exp, base);
   }
 }
+
+// Método para iniciar el proceso de Radix Sort
 void Ordenador::radixsort(int *A, int n) {
-  radixSortAux(A, n);  // Inicia el proceso de radix sort
+  radixSortAux(A, n);   // Llama al método auxiliar
 }

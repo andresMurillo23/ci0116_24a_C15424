@@ -1,6 +1,6 @@
 # Tarea Programada I, Entrega II
 
-Esta tarea consta de tres algoritmos, seleccion, insercion y mezcla, los cuales fueron sometidos a pruebas para observar cual es el comportamiento de estos para llegar a ciertas conclusiones.
+Esta tarea consta de seis algoritmos, seleccion, insercion y mezcla, rapido, residuos y monticulos, los cuales fueron sometidos a pruebas para observar cual es el comportamiento de estos para llegar a ciertas conclusiones.
 
 ## Algoritmos Implementados
 ### SELECCION
