@@ -31,7 +31,6 @@ INSERTION-SORT(A)
 ### MERGE
 ```
 MERGE(A, p, q, r)
-
 1   n1 = q - p + 1
 2   n2 = r - q
 3   let L[1..n1 + 1] and R[1..n2 + 1] be new arrays
@@ -52,7 +51,6 @@ MERGE(A, p, q, r)
 
 
 MERGE-SORT(A, p, r)
-
 1 if p < r
 2   q = [(p + r) / 2]
 3   MERGE-SORT(A, p, q)
@@ -64,7 +62,6 @@ MERGE-SORT(A, p, r)
 ### HEAPSORT
 ``` 
 MAX-HEAPIFY(A, i)
-
 1. l = LEFT(i)
 2. r = RIGHT(i)
 3. if l ≤ A.heap-size and A[l] > A[i]
@@ -79,14 +76,12 @@ MAX-HEAPIFY(A, i)
 
 
 BUILD-MAX-HEAP(A, n)
-
 1. A.heap-size = n
 2. for i = ⌊n/2⌋ downto 1
 3.     MAX-HEAPIFY(A, i)
 
 
 HEAPSORT(A, n)
-
 1. BUILD-MAX-HEAP(A, n)
 2. for i = n downto 2
 3.     exchange A[1] with A[i]
@@ -95,7 +90,6 @@ HEAPSORT(A, n)
 
 
 ### MAX-HEAP-EXTRACT-MAX(A)
-
 1. max = MAX-HEAP-MAXIMUM(A)
 2. A[1] = A[A.heap-size]
 3. A.heap-size = A.heap-size - 1
@@ -104,7 +98,6 @@ HEAPSORT(A, n)
 
 
 ### MAX-HEAP-INSERT(A, x, n)
-
 1. if A.heap-size == n
 2.     error "heap overflow"
 3. A.heap-size = A.heap-size + 1
@@ -117,7 +110,6 @@ HEAPSORT(A, n)
 ### QUICKSORT
 ```
 QUICKSORT(A, p, r)
-
 1. if p < r
 2.     // Partition the subarray around the pivot, which ends up in A[q].
 3.     q = PARTITION(A, p, r)
@@ -125,7 +117,6 @@ QUICKSORT(A, p, r)
 5.     QUICKSORT(A, q + 1, r)  // recursively sort the high side
 
 PARTITION(A, p, r)
-
 1. x = A[r]  // the pivot
 2. i = p - 1 // highest index into the low side
 3. for j = p to r - 1
@@ -139,7 +130,6 @@ PARTITION(A, p, r)
 ### COUNTING-SORT
 ```
 COUNTING-SORT(A, n, k)
-
 1. let B[1:n] and C[0:k] be new arrays
 2. for i = 0 to k
 3.     C[i] = 0
@@ -157,7 +147,6 @@ COUNTING-SORT(A, n, k)
 15. return B
 
 RADIX-SORT(A, n, d)
-
 1. for i = 1 to d
 2.     use a stable sort to sort array A[1:n] on digit i
 
@@ -173,8 +162,18 @@ Para la realizacion de pruebas se hizo un main en el cual cambiando la constante
     ordenador.seleccion(arreglo, tam_arreglo);
     auto end = std::chrono::high_resolution_clock::now();
 ````
-### Grafica de resultados de las pruebas
+### Consideraciones generales
+Es importante mencionar que el algoritmo RadixSort fue probado con un rango de numeros de [0, 10000], ya que para algunos casos superiores debido a la base utlizada este no funcionaba. 
 
+### Referencias usadas
+
+- Woltmann, S. (2022, July 19). Radix Sort – Algorithm, Source Code, Time Complexity. HappyCoders.eu; HappyCoders.eu. https://www.happycoders.eu/algorithms/radix-sort/
+
+- ‌Radix Sort | Brilliant Math & Science Wiki. (2019). Brilliant.org. https://brilliant.org/wiki/radix-sort/
+
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. Introduction to Algorithms, IV ed. MIT Press, 2022.
+
+### Grafica de resultados de las pruebas
 ![Descripción de la imagen](Grafico/Grafico.svg)
 
 ### Compilacion
