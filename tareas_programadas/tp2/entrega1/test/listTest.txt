@@ -17,3 +17,4 @@ Pruebas de busqueda tras insercion ordenada:
 Tiempo de busqueda: 26.1238 segundos
 Tiempo de busqueda: 28.9341 segundos
 Tiempo de busqueda: 28.1179 segundos
+ 
