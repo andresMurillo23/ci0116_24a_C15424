@@ -1,0 +1,19 @@
+Pruebas de insercion aleatoria en BST:
+Tiempo de insercion aleatoria en BST (repeticion 1): 0.500142 segundos
+Tiempo de insercion aleatoria en BST (repeticion 2): 0.512376 segundos
+Tiempo de insercion aleatoria en BST (repeticion 3): 0.445274 segundos
+
+Pruebas de insercion ordenada en BST:
+Tiempo de insercion ordenada en BST (repeticion 1): 0.070497 segundos
+Tiempo de insercion ordenada en BST (repeticion 2): 0.06347 segundos
+Tiempo de insercion ordenada en BST (repeticion 3): 0.066762 segundos
+
+Pruebas de busqueda tras insercion aleatoria en BST:
+Tiempo de busqueda en BST: 0.001639 segundos
+Tiempo de busqueda en BST: 0.001747 segundos
+Tiempo de busqueda en BST: 0.001653 segundos
+
+Pruebas de busqueda tras insercion ordenada en BST:
+Tiempo de busqueda en BST: 0.004574 segundos
+Tiempo de busqueda en BST: 0.004131 segundos
+Tiempo de busqueda en BST: 0.003823 segundos

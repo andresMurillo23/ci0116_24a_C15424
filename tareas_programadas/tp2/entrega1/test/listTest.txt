@@ -1,0 +1,19 @@
+Pruebas de insercion aleatoria:
+Tiempo de insercion aleatoria (repeticion 1): 0.063093 segundos
+Tiempo de insercion aleatoria (repeticion 2): 0.057742 segundos
+Tiempo de insercion aleatoria (repeticion 3): 0.056747 segundos
+
+Pruebas de insercion ordenada:
+Tiempo de insercion ordenada (repeticion 1): 0.042919 segundos
+Tiempo de insercion ordenada (repeticion 2): 0.042254 segundos
+Tiempo de insercion ordenada (repeticion 3): 0.040904 segundos
+
+Pruebas de busqueda tras insercion aleatoria:
+Tiempo de busqueda: 28.0978 segundos
+Tiempo de busqueda: 27.6128 segundos
+Tiempo de busqueda: 27.5663 segundos
+
+Pruebas de busqueda tras insercion ordenada:
+Tiempo de busqueda: 26.1238 segundos
+Tiempo de busqueda: 28.9341 segundos
+Tiempo de busqueda: 28.1179 segundos
