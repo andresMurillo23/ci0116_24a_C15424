@@ -1,32 +1,35 @@
 #ifndef llist_h
 #define llist_h
 
-#include <string>
+#include <iostream>
+#include <stdexcept>
 
 /**
  * @class llnode
- * @brief Clase que representa un nodo en una lista doblemente enlazada.
+ * @brief Clase para representar un nodo en una lista enlazada.
+ * @tparam T Tipo de dato almacenado en el nodo.
  */
 template <typename T>
-class llnode {
+class llnode
+{
 private:
-    T key;               ///< Llave del nodo
-    llnode<T>* prev;     ///< Puntero al nodo previo
-    llnode<T>* next;     ///< Puntero al nodo siguiente
+    T key; ///< Clave almacenada en el nodo.
+    llnode<T> *prev; ///< Puntero al nodo anterior.
+    llnode<T> *next; ///< Puntero al siguiente nodo.
 
 public:
     /**
-     * @brief Constructor por omisión.
+     * @brief Constructor por defecto.
      */
     llnode() : key(T()), prev(nullptr), next(nullptr) {}
 
     /**
-     * @brief Constructor que inicializa los datos miembros.
-     * @param k Llave del nodo.
-     * @param w Puntero al nodo previo.
-     * @param y Puntero al nodo siguiente.
+     * @brief Constructor con inicialización de datos miembros.
+     * @param k Clave a almacenar en el nodo.
+     * @param w Puntero al nodo anterior.
+     * @param y Puntero al siguiente nodo.
      */
-    llnode(const T& k, llnode<T>* w = nullptr, llnode<T>* y = nullptr) : key(k), prev(w), next(y) {}
+    llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) : key(k), prev(w), next(y) {}
 
     /**
      * @brief Destructor.
@@ -34,136 +37,145 @@ public:
     ~llnode() {}
 
     /**
-     * @brief Obtiene la llave del nodo.
-     * @return La llave del nodo.
+     * @brief Obtiene la clave almacenada en el nodo.
+     * @return La clave almacenada en el nodo.
      */
-    T getKey() const { return key; }
+    T getKey() const {
+        return key;
+    }
 
     /**
-     * @brief Establece la llave del nodo.
-     * @param k La nueva llave del nodo.
+     * @brief Obtiene el puntero al nodo anterior.
+     * @return El puntero al nodo anterior.
      */
-    void setKey(const T& k) { key = k; }
+    llnode<T>* getPrev() const {
+        return prev;
+    }
 
     /**
-     * @brief Obtiene el puntero al nodo previo.
-     * @return El puntero al nodo previo.
+     * @brief Obtiene el puntero al siguiente nodo.
+     * @return El puntero al siguiente nodo.
      */
-    llnode<T>* getPrev() const { return prev; }
+    llnode<T>* getNext() const {
+        return next;
+    }
 
     /**
-     * @brief Establece el puntero al nodo previo.
-     * @param w El nuevo puntero al nodo previo.
+     * @brief Establece la clave del nodo.
+     * @param k Clave a establecer.
      */
-    void setPrev(llnode<T>* w) { prev = w; }
+    void setKey(const T &k) {
+        key = k;
+    }
 
     /**
-     * @brief Obtiene el puntero al nodo siguiente.
-     * @return El puntero al nodo siguiente.
+     * @brief Establece el puntero al nodo anterior.
+     * @param p Puntero al nodo anterior.
      */
-    llnode<T>* getNext() const { return next; }
+    void setPrev(llnode<T> *p) {
+        prev = p;
+    }
 
     /**
-     * @brief Establece el puntero al nodo siguiente.
-     * @param y El nuevo puntero al nodo siguiente.
+     * @brief Establece el puntero al siguiente nodo.
+     * @param n Puntero al siguiente nodo.
      */
-    void setNext(llnode<T>* y) { next = y; }
+    void setNext(llnode<T> *n) {
+        next = n;
+    }
 };
 
 /**
  * @class llist
- * @brief Clase que representa una lista doblemente enlazada con un nodo centinela.
+ * @brief Clase para representar una lista enlazada con nodo centinela.
+ * @tparam T Tipo de dato almacenado en los nodos de la lista.
  */
 template <typename T>
-class llist {
+class llist
+{
 private:
-    llnode<T>* nil;  ///< Nodo centinela
+    llnode<T> *nil; ///< Nodo centinela.
 
+public:
     /**
-     * @brief Inicializa la lista con el nodo centinela.
+     * @brief Constructor. Crea una lista vacía.
      */
-    void initialize() {
+    llist()
+    {
         nil = new llnode<T>();
         nil->setNext(nil);
         nil->setPrev(nil);
     }
 
-public:
     /**
-     * @brief Constructor que crea una lista vacía.
+     * @brief Destructor. Borra todos los nodos de la lista.
      */
-    llist() {
-        initialize();
-    }
-
-    /**
-     * @brief Destructor que borra la lista.
-     */
-    ~llist() {
-        llnode<T>* current = nil->getNext();
-        while (current != nil) {
-            llnode<T>* toDelete = current;
+    ~llist()
+    {
+        llnode<T> *current = nil->getNext();
+        while (current != nil)
+        {
+            llnode<T> *temp = current;
             current = current->getNext();
-            delete toDelete;
+            delete temp;
         }
         delete nil;
     }
 
     /**
-     * @brief Inserta el nodo x después del nodo y.
-     * @param x Nodo a insertar.
-     * @param y Nodo después del cual se inserta el nuevo nodo.
+     * @brief Inserta un nodo en la lista.
+     * @param x Puntero al nodo a insertar.
      */
-    void Insert(llnode<T>* x, llnode<T>* y) {
-        x->setNext(y->getNext());
-        x->setPrev(y);
-        if (y->getNext() != nil) {
-            y->getNext()->setPrev(x);
+    void Insert(llnode<T> *x)
+    {
+        if (!x) {
+            throw std::invalid_argument("El nodo a insertar no puede ser nulo");
         }
-        y->setNext(x);
+        x->setNext(nil->getNext());
+        nil->getNext()->setPrev(x);
+        nil->setNext(x);
+        x->setPrev(nil);
     }
 
     /**
-     * @brief Busca la llave especificada en la lista.
-     * @param k Llave a buscar.
-     * @return Puntero al nodo que contiene la llave, o al nodo centinela si no se encuentra.
+     * @brief Busca una clave en la lista.
+     * @param k Clave a buscar.
+     * @return Puntero al nodo que contiene la clave, o al nodo centinela si no se encuentra.
      */
-    llnode<T>* Search(const T& k) {
-        llnode<T>* current = nil->getNext();
-        while (current != nil && current->getKey() != k) {
-            current = current->getNext();
+    llnode<T> *Search(const T &k)
+    {
+        llnode<T> *x = nil->getNext();
+        while (x != nil && x->getKey() != k)
+        {
+            x = x->getNext();
         }
-        return current;
+        if (x == nil) {
+            std::cout << "Clave no encontrada en la lista." << std::endl;
+        }
+        return x;
     }
 
     /**
-     * @brief Elimina el nodo especificado de la lista.
-     * @param x Nodo a eliminar.
+     * @brief Elimina un nodo de la lista.
+     * @param x Puntero al nodo a eliminar.
      */
-    void Delete(llnode<T>* x) {
-        if (x->getPrev() != nil) {
-            x->getPrev()->setNext(x->getNext());
-        } else {
-            nil->setNext(x->getNext());
+    void Delete(llnode<T> *x)
+    {
+        if (!x || x == nil) {
+            throw std::invalid_argument("El nodo a eliminar no puede ser nulo ni el nodo centinela");
         }
-        if (x->getNext() != nil) {
-            x->getNext()->setPrev(x->getPrev());
-        }
+        x->getPrev()->setNext(x->getNext());
+        x->getNext()->setPrev(x->getPrev());
         delete x;
     }
 
     /**
-     * @brief Devuelve el nodo centinela.
-     * @return Puntero al nodo centinela.
+     * @brief Imprime los datos de la tarea.
+     * @return Cadena con el número de carné, identificador de la tarea y etapa.
      */
-    llnode<T>* getNil() const { return nil; }
-
-    /**
-     * @brief Retorna una cadena con los detalles de la tarea.
-     * @return Una cadena con los detalles de la tarea.
-     */
-    std::string ImprimirDatosDeTarea() const {
-        return "c15424 Tarea 1 Etapa 2.";
+    std::string ImprimirDatosDeTarea()
+    {
+        return "b12345 Tarea 1 Etapa 1";
     }
 };
 

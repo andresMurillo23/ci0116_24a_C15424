@@ -1,7 +1,6 @@
 #ifndef Ordenador_h
 #define Ordenador_h
 #include <string>
-#include <algorithm>
 
 class Ordenador{
 	private:
