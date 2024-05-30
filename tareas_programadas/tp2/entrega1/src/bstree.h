@@ -128,6 +128,8 @@ public:
     void Insert(bstnode<T>* z) {
         bstnode<T>* currentNode = getRoot();
         bstnode<T>* lastNode = nullptr;
+
+        // Encuentra la posición adecuada para insertar el nuevo nodo
         while (currentNode != nullptr) {
             lastNode = currentNode;
             if (z->getKey() >= currentNode->getKey()) {
@@ -136,9 +138,11 @@ public:
                 currentNode = currentNode->getLeft();
             }
         }
+
+        // Establece el padre del nuevo nodo
         z->setP(lastNode);
         if (lastNode == nullptr) {
-            setRoot(z);
+            setRoot(z); // El árbol estaba vacío
         } else if (z->getKey() >= lastNode->getKey()) {
             lastNode->setRight(z);
         } else {
@@ -234,9 +238,11 @@ public:
         bstnode<T>* y; // Nodo que será eliminado
         bstnode<T>* x; // Nodo que reemplazará a y
 
+        // Determina el nodo que realmente será eliminado
         y = (z->getLeft() == nullptr || z->getRight() == nullptr) ? z : Successor(z);
         x = (y->getLeft() != nullptr) ? y->getLeft() : y->getRight();
 
+        // Ajusta los punteros para eliminar y de la estructura del árbol
         if (x != nullptr) {
             x->setP(y->getP());
         }
@@ -250,7 +256,7 @@ public:
         }
 
         if (y != z) {
-            z->setKey(y->getKey());
+            z->setKey(y->getKey()); // Copia la clave de y a z
         }
 
         delete y;

@@ -101,8 +101,7 @@ class llist
     /**
      * @brief Constructor. Crea una lista vacía.
      */
-    llist()
-    {
+    llist() {
         nil = new llnode<T>();
         nil->setNext(nil);
         nil->setPrev(nil);
@@ -111,8 +110,7 @@ class llist
     /**
      * @brief Destructor. Borra todos los nodos de la lista.
      */
-    ~llist()
-    {
+    ~llist() {
         llnode<T> *current = nil->getNext();
         while (current != nil)
         {
@@ -127,8 +125,7 @@ class llist
      * @brief Inserta un nodo en la lista.
      * @param x Puntero al nodo a insertar.
      */
-    void Insert(llnode<T> *x)
-    {
+    void Insert(llnode<T> *x) {
         if (!x) {
             throw std::invalid_argument("El nodo a insertar no puede ser nulo");
         }
@@ -162,8 +159,7 @@ class llist
      * @brief Elimina un nodo de la lista.
      * @param x Puntero al nodo a eliminar.
      */
-    void Delete(llnode<T> *x)
-    {
+    void Delete(llnode<T> *x) {
         if (!x || x == nil) {
             throw std::invalid_argument("El nodo a eliminar no puede ser nulo ni el nodo centinela");
         }
