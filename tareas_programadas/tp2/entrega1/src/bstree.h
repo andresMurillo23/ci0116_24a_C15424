@@ -1,7 +1,10 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #ifndef bstree_h
 #define bstree_h
 
 #include <iostream>
+#include <stack>
+#include <string>
 
 /**
  * @class bstnode
@@ -9,15 +12,14 @@
  * @tparam T Tipo de dato de la clave del nodo.
  */
 template <typename T>
-class bstnode
-{
-private:
-    T key; ///< Clave del nodo
-    bstnode<T> *p; ///< Puntero al nodo padre
-    bstnode<T> *left; ///< Puntero al hijo izquierdo
-    bstnode<T> *right; ///< Puntero al hijo derecho
+class bstnode {
+ private:
+    T key;               ///< Clave del nodo
+    bstnode<T> *p;       ///< Puntero al nodo padre
+    bstnode<T> *left;    ///< Puntero al hijo izquierdo
+    bstnode<T> *right;   ///< Puntero al hijo derecho
 
-public:
+ public:
     /**
      * @brief Constructor por omisión.
      */
@@ -30,7 +32,8 @@ public:
      * @param y Puntero al hijo izquierdo.
      * @param z Puntero al hijo derecho.
      */
-    bstnode(const T& k, bstnode<T> *w = nullptr, bstnode<T> *y = nullptr, bstnode<T> *z = nullptr) : key(k), p(w), left(y), right(z) {}
+    bstnode(const T& k, bstnode<T> *w = nullptr, bstnode<T> *y = nullptr,
+        bstnode<T> *z = nullptr) : key(k), p(w), left(y), right(z) {}
 
     /**
      * @brief Destructor.
@@ -94,12 +97,11 @@ public:
  * @tparam T Tipo de dato de las claves en el árbol.
  */
 template <typename T>
-class bstree
-{
-private:
-    bstnode<T> *root; ///< Puntero a la raíz del árbol
+class bstree {
+ private:
+    bstnode<T> *root;  ///< Puntero a la raíz del árbol
 
-public:
+ public:
     /**
      * @brief Constructor que crea un árbol vacío.
      */
@@ -108,7 +110,10 @@ public:
     /**
      * @brief Destructor que borra el árbol.
      */
-    ~bstree() { DeleteTree(getRoot()); }
+    ~bstree() {
+        DeleteTree(getRoot());
+        setRoot(nullptr);
+    }
 
     /**
      * @brief Borra el subárbol con raíz en el nodo dado.
@@ -116,9 +121,23 @@ public:
      */
     void DeleteTree(bstnode<T>* node) {
         if (node == nullptr) return;
-        DeleteTree(node->getLeft());
-        DeleteTree(node->getRight());
-        delete node;
+
+        std::stack<bstnode<T>*> nodeStack;
+        nodeStack.push(node);
+
+        while (!nodeStack.empty()) {
+            bstnode<T>* current = nodeStack.top();
+            nodeStack.pop();
+
+            if (current->getLeft() != nullptr) {
+                nodeStack.push(current->getLeft());
+            }
+            if (current->getRight() != nullptr) {
+                nodeStack.push(current->getRight());
+            }
+
+            delete current;
+        }
     }
 
     /**
@@ -142,7 +161,7 @@ public:
         // Establece el padre del nuevo nodo
         z->setP(lastNode);
         if (lastNode == nullptr) {
-            setRoot(z); // El árbol estaba vacío
+            setRoot(z);  // El árbol estaba vacío
         } else if (z->getKey() >= lastNode->getKey()) {
             lastNode->setRight(z);
         } else {
@@ -169,7 +188,8 @@ public:
      */
     bstnode<T>* Search(bstnode<T> *x, const T& k) {
         if (x == nullptr || x->getKey() == k) return x;
-        return (k < x->getKey()) ? Search(x->getLeft(), k) : Search(x->getRight(), k);
+        return (k < x->getKey()) ? Search(x->getLeft(), k) :
+            Search(x->getRight(), k);
     }
 
     /**
@@ -235,11 +255,12 @@ public:
     void Delete(bstnode<T>* z) {
         if (z == nullptr) return;
 
-        bstnode<T>* y; // Nodo que será eliminado
-        bstnode<T>* x; // Nodo que reemplazará a y
+        bstnode<T>* y;  // Nodo que será eliminado
+        bstnode<T>* x;  // Nodo que reemplazará a y
 
         // Determina el nodo que realmente será eliminado
-        y = (z->getLeft() == nullptr || z->getRight() == nullptr) ? z : Successor(z);
+        y = (z->getLeft() == nullptr || z->getRight() == nullptr) ? z :
+            Successor(z);
         x = (y->getLeft() != nullptr) ? y->getLeft() : y->getRight();
 
         // Ajusta los punteros para eliminar y de la estructura del árbol
@@ -256,7 +277,7 @@ public:
         }
 
         if (y != z) {
-            z->setKey(y->getKey()); // Copia la clave de y a z
+            z->setKey(y->getKey());  // Copia la clave de y a z
         }
 
         delete y;
@@ -283,4 +304,4 @@ public:
     }
 };
 
-#endif /* bstree_h */
+#endif  // bstree_h

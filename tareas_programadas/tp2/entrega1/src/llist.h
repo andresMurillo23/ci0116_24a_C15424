@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 /**
  * @class llnode
@@ -11,12 +12,11 @@
  * @tparam T Tipo de dato almacenado en el nodo.
  */
 template <typename T>
-class llnode
-{
+class llnode {
  private:
-    T key; ///< Clave almacenada en el nodo.
-    llnode<T> *prev; ///< Puntero al nodo anterior.
-    llnode<T> *next; ///< Puntero al siguiente nodo.
+    T key;              ///< Clave almacenada en el nodo.
+    llnode<T> *prev;    ///< Puntero al nodo anterior.
+    llnode<T> *next;    ///< Puntero al siguiente nodo.
 
  public:
     /**
@@ -30,7 +30,8 @@ class llnode
      * @param w Puntero al nodo anterior.
      * @param y Puntero al siguiente nodo.
      */
-    llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) : key(k), prev(w), next(y) {}
+    llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) :
+        key(k), prev(w), next(y) {}
 
     /**
      * @brief Destructor.
@@ -92,10 +93,9 @@ class llnode
  * @tparam T Tipo de dato almacenado en los nodos de la lista.
  */
 template <typename T>
-class llist
-{
+class llist {
  private:
-    llnode<T> *nil; ///< Nodo centinela.
+    llnode<T> *nil;  ///< Nodo centinela.
 
  public:
     /**
@@ -112,8 +112,7 @@ class llist
      */
     ~llist() {
         llnode<T> *current = nil->getNext();
-        while (current != nil)
-        {
+        while (current != nil) {
             llnode<T> *temp = current;
             current = current->getNext();
             delete temp;
@@ -151,7 +150,7 @@ class llist
         if (current == nil) {
             nil->setKey(T());
             return nullptr;
-        } 
+        }
         return current;
     }
 
@@ -161,7 +160,7 @@ class llist
      */
     void Delete(llnode<T> *x) {
         if (!x || x == nil) {
-            throw std::invalid_argument("El nodo a eliminar no puede ser nulo ni el nodo centinela");
+            throw std::invalid_argument("No puede ser nulo ni centinela");
         }
         x->getPrev()->setNext(x->getNext());
         x->getNext()->setPrev(x->getPrev());
@@ -175,7 +174,6 @@ class llist
     std::string ImprimirDatosDeTarea() {
         return "b12345 Tarea 1 Etapa 1";
     }
-
 };
 
 #endif /* llist_h */
