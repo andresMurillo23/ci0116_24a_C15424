@@ -92,97 +92,125 @@ int main() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 // #include <iostream>
 // #include <chrono>
 // #include <random>
 // #include <vector>
-// #include "bstree.h"
-// #include "llist.h"
+// #include "bstree.h" // Suponiendo que tienes un archivo bstree.h con las implementaciones del árbol
 
 // const int N = 1000000;
 // const int E = 10000;
-// const int REPETITIONS = 3;
 
-// void insercionAleatoriaBST(bstree<int>& arbol) {
-//     std::random_device rd;
-//     std::mt19937 gen(rd());
-//     std::uniform_int_distribution<> dis(0, 2 * N);
-
-//     for (int i = 0; i < N; ++i) {
-//         int key = dis(gen);
-//         arbol.Insert(new bstnode<int>(key));
+// void insercionOrdenada(bstree<int>& tree) {
+//     bstnode<int>* rightNode = new bstnode<int>(0);
+//     tree.setRoot(rightNode);
+//     for (int i = 1; i < N; ++i) {
+//         rightNode->setRight(new bstnode<int>(i));
+//         rightNode = rightNode->getRight();
 //     }
 // }
 
-// void insercionOrdenadaBST(bstree<int>& arbol) {
-//     std::vector<int> keys;
-//     for (int i = 0; i < N; ++i) {
-//         keys.push_back(i);
-//     }
-//     arbol.buildBalancedTree(keys);
-// }
-
-// void buscarElementosBST(bstree<int>& arbol) {
+// void buscarElementos(bstree<int>& tree) {
 //     std::random_device rd;
 //     std::mt19937 gen(rd());
 //     std::uniform_int_distribution<> dis(0, 2 * N);
 
 //     for (int i = 0; i < E; ++i) {
 //         int key = dis(gen);
-//         arbol.Search(arbol.getRoot(), key);
+//         bstnode<int>* result = tree.IterativeSearch(tree.getRoot(), key);
+//         // Si deseas imprimir los resultados, puedes hacerlo aquí
 //     }
 // }
 
-// void medirTiempoInsercionAleatoriaBST() {
-//     for (int i = 0; i < REPETITIONS; ++i) {
-//         bstree<int> arbol;
-//         auto start = std::chrono::high_resolution_clock::now();
-//         insercionAleatoriaBST(arbol);
-//         auto end = std::chrono::high_resolution_clock::now();
-//         std::chrono::duration<double> duration = end - start;
-//         std::cout << "Tiempo de inserción aleatoria en BST (repetición " << i + 1 << "): " << duration.count() << " segundos" << std::endl;
-//     }
-// }
-
-// void medirTiempoInsercionOrdenadaBST() {
-//     for (int i = 0; i < REPETITIONS; ++i) {
-//         bstree<int> arbol;
-//         auto start = std::chrono::high_resolution_clock::now();
-//         insercionOrdenadaBST(arbol);
-//         auto end = std::chrono::high_resolution_clock::now();
-//         std::chrono::duration<double> duration = end - start;
-//         std::cout << "Tiempo de inserción ordenada en BST (repetición " << i + 1 << "): " << duration.count() << " segundos" << std::endl;
-//     }
-// }
-
-// void medirTiempoBusquedaBST(bstree<int>& arbol) {
+// double medirTiempoBusqueda(bstree<int>& tree) {
 //     auto start = std::chrono::high_resolution_clock::now();
-//     buscarElementosBST(arbol);
+//     buscarElementos(tree);
 //     auto end = std::chrono::high_resolution_clock::now();
 //     std::chrono::duration<double> duration = end - start;
-//     std::cout << "Tiempo de búsqueda en BST: " << duration.count() << " segundos" << std::endl;
+//     return duration.count();
 // }
 
 // int main() {
-//     std::cout << "Pruebas de inserción aleatoria en BST:" << std::endl;
-//     medirTiempoInsercionAleatoriaBST();
 
-//     std::cout << "\nPruebas de inserción ordenada en BST:" << std::endl;
-//     medirTiempoInsercionOrdenadaBST();
+//     bstree<int> tree;
+//     auto start = std::chrono::high_resolution_clock::now();
+//     insercionOrdenada(tree);
+//     auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> duration = end - start;
+//     std::cout << "Tiempo de insercion ordenada: " << duration.count() << " segundos" << std::endl;
 
-//     std::cout << "\nPruebas de búsqueda tras inserción aleatoria en BST:" << std::endl;
-//     for (int i = 0; i < REPETITIONS; ++i) {
-//         bstree<int> arbol;
-//         insercionAleatoriaBST(arbol);
-//         medirTiempoBusquedaBST(arbol);
+//     double tiempoBusqueda = medirTiempoBusqueda(tree);
+//     std::cout << "Tiempo de busqueda tras insercion ordenada: " << tiempoBusqueda << " segundos" << std::endl;
+
+
+       
+//     return 0;
+// }
+
+
+
+
+// #include <iostream>
+// #include <chrono>
+// #include <random>
+// #include <vector>
+// #include "bstree.h" // Suponiendo que tienes un archivo bstree.h con las implementaciones del árbol
+
+// const int N = 1000000;
+// const int E = 10000;
+
+// void insercionAleatoria(bstree<int>& tree) {
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//     std::uniform_int_distribution<> dis(0, 2 * N);
+
+//     for (int i = 0; i < N; ++i) {
+//         int key = dis(gen);
+//         tree.Insert(new bstnode<int>(key));
 //     }
+// }
 
-//     std::cout << "\nPruebas de búsqueda tras inserción ordenada en BST:" << std::endl;
-//     for (int i = 0; i < REPETITIONS; ++i) {
-//         bstree<int> arbol;
-//         insercionOrdenadaBST(arbol);
-//         medirTiempoBusquedaBST(arbol);
+// void buscarElementos(bstree<int>& tree) {
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+//     std::uniform_int_distribution<> dis(0, 2 * N);
+
+//     for (int i = 0; i < E; ++i) {
+//         int key = dis(gen);
+//         bstnode<int>* result = tree.IterativeSearch(tree.getRoot(), key);
+//         // Si deseas imprimir los resultados, puedes hacerlo aquí
 //     }
+// }
+
+// double medirTiempoBusqueda(bstree<int>& tree) {
+//     auto start = std::chrono::high_resolution_clock::now();
+//     buscarElementos(tree);
+//     auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> duration = end - start;
+//     return duration.count();
+// }
+
+// int main() {
+//     bstree<int> tree;
+//     auto start = std::chrono::high_resolution_clock::now();
+//     insercionAleatoria(tree);
+//     auto end = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> duration = end - start;
+//     std::cout << "Tiempo de insercion aleatoria: " << duration.count() << " segundos" << std::endl;
+
+//     double tiempoBusqueda = medirTiempoBusqueda(tree);
+//     std::cout << "Tiempo de busqueda tras insercion aleatoria: " << tiempoBusqueda << " segundos" << std::endl;
 
 //     return 0;
 // }

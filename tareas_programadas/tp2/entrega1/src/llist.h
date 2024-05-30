@@ -1,3 +1,4 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #ifndef llist_h
 #define llist_h
 
@@ -12,12 +13,12 @@
 template <typename T>
 class llnode
 {
-private:
+ private:
     T key; ///< Clave almacenada en el nodo.
     llnode<T> *prev; ///< Puntero al nodo anterior.
     llnode<T> *next; ///< Puntero al siguiente nodo.
 
-public:
+ public:
     /**
      * @brief Constructor por defecto.
      */
@@ -93,10 +94,10 @@ public:
 template <typename T>
 class llist
 {
-private:
+ private:
     llnode<T> *nil; ///< Nodo centinela.
 
-public:
+ public:
     /**
      * @brief Constructor. Crea una lista vacía.
      */
@@ -138,21 +139,23 @@ public:
     }
 
     /**
-     * @brief Busca una clave en la lista.
-     * @param k Clave a buscar.
-     * @return Puntero al nodo que contiene la clave, o al nodo centinela si no se encuentra.
+     * @brief Busca un nodo con la clave especificada en la lista enlazada. 
+     * @param k La clave a buscar en la lista.
+     * @return llnode<T>* Puntero al nodo que contiene la clave, o `nullptr` si no se encuentra.
+     * @note Modifica temporalmente la clave del nodo centinela `nil`.
      */
-    llnode<T> *Search(const T &k)
-    {
-        llnode<T> *x = nil->getNext();
-        while (x != nil && x->getKey() != k)
-        {
-            x = x->getNext();
+    llnode<T>* Search(const T& k) {
+        nil->setKey(k);
+        llnode<T>* current = nil->getNext();
+
+        while (current->getKey() != k) {
+            current = current->getNext();
         }
-        if (x == nil) {
-            std::cout << "Clave no encontrada en la lista." << std::endl;
-        }
-        return x;
+        if (current == nil) {
+            nil->setKey(T());
+            return nullptr;
+        } 
+        return current;
     }
 
     /**
@@ -173,10 +176,10 @@ public:
      * @brief Imprime los datos de la tarea.
      * @return Cadena con el número de carné, identificador de la tarea y etapa.
      */
-    std::string ImprimirDatosDeTarea()
-    {
+    std::string ImprimirDatosDeTarea() {
         return "b12345 Tarea 1 Etapa 1";
     }
+
 };
 
 #endif /* llist_h */
