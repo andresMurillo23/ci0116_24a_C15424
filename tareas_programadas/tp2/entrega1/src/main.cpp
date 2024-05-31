@@ -57,7 +57,7 @@ int main() {
 // #include <chrono>
 // #include <random>
 // #include <vector>
-// #include "bstree.h" // Suponiendo que tienes un archivo bstree.h con las implementaciones del árbol
+// #include "bstree.h"
 
 // const int N = 1000000;
 // const int E = 10000;

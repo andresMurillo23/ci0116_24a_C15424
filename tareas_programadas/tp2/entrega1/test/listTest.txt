@@ -15,5 +15,5 @@ Tiempo de busqueda: 28.8458 segundos
 
 Pruebas de busqueda tras insercion ordenada:
 Tiempo de busqueda: 29.3746 segundos
-Tiempo de busqueda: 27.399 segundos
+Tiempo de busqueda: 27.3991 segundos
 Tiempo de busqueda: 27.74 segundos

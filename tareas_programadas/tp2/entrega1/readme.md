@@ -175,6 +175,15 @@ Tiempo de busqueda: 27.399 segundos
 Tiempo de busqueda: 27.74 segundos
 ```
 Esto para mayor facilidad en la recoleccion de los tiempos. 
+### Pruebas realizadas con los siguientes datos
+```
+const int N = 1000000;
+const int E = 10000;
+```
+Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con cada estructura e insercion
+### Graficos que muestran resultados
+![Descripción de la imagen](images/bst.svg)
+![Descripción de la imagen](images/list.svg)
 
 ### Consideraciones generales
 Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para realizar pruebas de insercion aleatoria y ordenada en el BST y el otro fue para hacer las pruebas de la lista doblemente enlazada. 
