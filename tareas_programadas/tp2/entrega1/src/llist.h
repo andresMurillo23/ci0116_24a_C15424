@@ -108,7 +108,7 @@ class llist {
      */
     void Insert(llnode<T> *x) {
         if (!x) {
-            throw std::invalid_argument("El nodo a insertar no puede ser nulo");
+            return; // Retorna si el nodo a insertar es nulo
         }
         x->setNext(nil->getNext());
         nil->setNext(x);
@@ -140,15 +140,15 @@ class llist {
      */
     void Delete(llnode<T> *x) {
         if (!x || x == nil) {
-            throw std::invalid_argument("No puede ser nulo ni centinela");
-            return;
+            return; // Retorna si el nodo es nulo o es el nodo centinela
         }
 
         llnode<T>* current = nil;
         while (current->getNext() != x) {
             current = current->getNext();
             if (current == nil) {
-                throw std::invalid_argument("El nodo a eliminar no se encuentra en la lista");
+                return; 
+                // Retorna si el nodo a eliminar no se encuentra en la lista
             }
         }
 
@@ -165,4 +165,4 @@ class llist {
     }
 };
 
-#endif /* llist_h */
+#endif // llist_h

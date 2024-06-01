@@ -7,7 +7,6 @@
 const int N = 1000000;
 const int E = 10000;
 
-
 void insercionOrdenada(bstree<int>& tree) {
     std::vector<int> arr;
     arr.reserve(N);

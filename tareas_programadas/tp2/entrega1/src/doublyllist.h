@@ -1,4 +1,5 @@
 // Copyright [2024] <Copyright Andres Murillo>
+// LISTA doblemente enlaszada se deja para trabajar despues con hash
 #ifndef llist_h
 #define llist_h
 
@@ -176,4 +177,4 @@ class llist {
     }
 };
 
-#endif /* llist_h */
+#endif // llist_h
