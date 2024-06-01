@@ -7,16 +7,16 @@
 const int N = 1000000;
 const int E = 10000;
 
+void insercionAleatoria(bstree<int>& tree) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 2 * N);
 
-void insercionOrdenada(bstree<int>& tree) {
-    std::vector<int> arr;
-    arr.reserve(N);
     for (int i = 0; i < N; ++i) {
-        arr.push_back(i);
+        int key = dis(gen);
+        tree.Insert(new bstnode<int>(key));
     }
-    tree.CreateTreeFromArray(arr);
 }
-
 
 void buscarElementos(bstree<int>& tree) {
     std::random_device rd;
@@ -40,13 +40,13 @@ double medirTiempoBusqueda(bstree<int>& tree) {
 int main() {
     bstree<int> tree;
     auto start = std::chrono::high_resolution_clock::now();
-    insercionOrdenada(tree);
+    insercionAleatoria(tree);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
-    std::cout << "Tiempo de insercion ordenada: " << duration.count() << " segundos" << std::endl;
+    std::cout << "Tiempo de insercion aleatoria: " << duration.count() << " segundos" << std::endl;
 
     double tiempoBusqueda = medirTiempoBusqueda(tree);
-    std::cout << "Tiempo de busqueda tras insercion ordenada: " << tiempoBusqueda << " segundos" << std::endl;
+    std::cout << "Tiempo de busqueda tras insercion aleatoria: " << tiempoBusqueda << " segundos" << std::endl;
 
     return 0;
 }

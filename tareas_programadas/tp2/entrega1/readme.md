@@ -194,9 +194,15 @@ Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para 
 - GeeksforGeeks. (2022, December 8). Insertion in Binary Search Tree (BST). GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/insertion-in-binary-search-tree/
 
 ### Compilacion
+#### ASAN
 ```
 g++ -fsanitize=address *.cpp *.h -o main
 ./main
+```
+#### MEMCHECK
+```
+g++ -g -o test *.cpp *.h
+valgrind --leak-check=full --show-leak-kinds=all ./test
 ```
 ### Creditos 
 - Andres Murillo Murillo 

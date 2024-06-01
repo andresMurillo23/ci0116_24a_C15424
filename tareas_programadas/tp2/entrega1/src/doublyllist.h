@@ -15,7 +15,7 @@ template <typename T>
 class llnode {
  private:
     T key;              ///< Clave almacenada en el nodo.
-    llnode<T> *prev;    ///< Puntero al nodo anterior, no se usa en este caso
+    llnode<T> *prev;    ///< Puntero al nodo anterior.
     llnode<T> *next;    ///< Puntero al siguiente nodo.
 
  public:
@@ -27,10 +27,11 @@ class llnode {
     /**
      * @brief Constructor con inicialización de datos miembros.
      * @param k Clave a almacenar en el nodo.
+     * @param w Puntero al nodo anterior.
      * @param y Puntero al siguiente nodo.
      */
-    llnode(const T &k, llnode<T> *y = nullptr) :
-        key(k), next(y) {}
+    llnode(const T &k, llnode<T> *w = nullptr, llnode<T> *y = nullptr) :
+        key(k), prev(w), next(y) {}
 
     /**
      * @brief Destructor.
@@ -43,6 +44,14 @@ class llnode {
      */
     T getKey() const {
         return key;
+    }
+
+    /**
+     * @brief Obtiene el puntero al nodo anterior.
+     * @return El puntero al nodo anterior.
+     */
+    llnode<T>* getPrev() const {
+        return prev;
     }
 
     /**
@@ -59,6 +68,14 @@ class llnode {
      */
     void setKey(const T &k) {
         key = k;
+    }
+
+    /**
+     * @brief Establece el puntero al nodo anterior.
+     * @param p Puntero al nodo anterior.
+     */
+    void setPrev(llnode<T> *p) {
+        prev = p;
     }
 
     /**
@@ -87,6 +104,7 @@ class llist {
     llist() {
         nil = new llnode<T>();
         nil->setNext(nil);
+        nil->setPrev(nil);
     }
 
     /**
@@ -111,11 +129,13 @@ class llist {
             throw std::invalid_argument("El nodo a insertar no puede ser nulo");
         }
         x->setNext(nil->getNext());
+        nil->getNext()->setPrev(x);
         nil->setNext(x);
+        x->setPrev(nil);
     }
 
     /**
-     * @brief Busca un nodo con la clave especificada en la lista enlazada.
+     * @brief Busca un nodo con la clave especificada en la lista enlazada. 
      * @param k La clave a buscar en la lista.
      * @return llnode<T>* Puntero al nodo que contiene la clave, o `nullptr` si no se encuentra.
      * @note Modifica temporalmente la clave del nodo centinela `nil`.
@@ -141,18 +161,9 @@ class llist {
     void Delete(llnode<T> *x) {
         if (!x || x == nil) {
             throw std::invalid_argument("No puede ser nulo ni centinela");
-            return;
         }
-
-        llnode<T>* current = nil;
-        while (current->getNext() != x) {
-            current = current->getNext();
-            if (current == nil) {
-                throw std::invalid_argument("El nodo a eliminar no se encuentra en la lista");
-            }
-        }
-
-        current->setNext(x->getNext());
+        x->getPrev()->setNext(x->getNext());
+        x->getNext()->setPrev(x->getPrev());
         delete x;
     }
 

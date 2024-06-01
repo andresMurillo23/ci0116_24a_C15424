@@ -249,38 +249,44 @@ class bstree {
     }
 
     /**
+     *  @brief Reemplaza el subárbol enraizado en el nodo u con el subárbol enraizado en el nodo v.
+     * @param u Nodo a ser reemplazado.
+     * @param v Nodo que reemplaza a u.
+     */
+    void Transplant(bstnode<T> u, bstnode<T>* v) {
+        if (u->getP() == nullptr) {
+            root = v;
+        } else if (u == u->getP()->getLeft()) {
+            u->getP()->setLeft(v);
+        } else {
+            u->getP()->setRight(v);
+        }
+        if (v != nullptr) {
+            v->setP(u->getP());
+        }
+    }
+
+    /**
      * @brief Elimina un nodo del árbol.
      * @param z Puntero al nodo a eliminar.
      */
-    void Delete(bstnode<T>* z) {
-        if (z == nullptr) return;
-
-        bstnode<T>* y;  // Nodo que será eliminado
-        bstnode<T>* x;  // Nodo que reemplazará a y
-
-        // Determina el nodo que realmente será eliminado
-        y = (z->getLeft() == nullptr || z->getRight() == nullptr) ? z :
-            Successor(z);
-        x = (y->getLeft() != nullptr) ? y->getLeft() : y->getRight();
-
-        // Ajusta los punteros para eliminar y de la estructura del árbol
-        if (x != nullptr) {
-            x->setP(y->getP());
-        }
-
-        if (y->getP() == nullptr) {
-            root = x;
-        } else if (y == y->getP()->getLeft()) {
-            y->getP()->setLeft(x);
+    void Delete(bstnode<T> z) {
+        if (z->getLeft() == nullptr) {
+            Transplant(z, z->getRight());
+        } else if (z->getRight() == nullptr) {
+            Transplant(z, z->getLeft());
         } else {
-            y->getP()->setRight(x);
+            bstnode<T>* y = Minimum(z->getRight());
+            if (y != z->getRight()) {
+                Transplant(y, y->getRight());
+                y->setRight(z->getRight());
+                y->getRight()->setP(y);
+            }
+            Transplant(z, y);
+            y->setLeft(z->getLeft());
+            y->getLeft()->setP(y);
         }
-
-        if (y != z) {
-            z->setKey(y->getKey());  // Copia la clave de y a z
-        }
-
-        delete y;
+        delete z;
     }
 
     /**
@@ -300,7 +306,27 @@ class bstree {
      * @return Cadena con el número de carné, identificador de la tarea y etapa.
      */
     std::string ImprimirDatosDeTarea() {
-        return "b12345 Tarea 1 Etapa 1";
+        return "c15424 Tarea 2 Etapa 1";
+    }
+
+    /**
+     * @brief Crea un árbol a partir de un array, insertando siempre a la derecha.
+     * @param arr Array de claves para construir el árbol.
+     */
+    void CreateTreeFromArray(const std::vector<T>& arr) {
+        bstnode<T>* lastNode = nullptr;
+
+        for (const T& key : arr) {
+            bstnode<T>* newNode = new bstnode<T>(key);
+            if (getRoot() == nullptr) {
+                setRoot(newNode);
+                lastNode = newNode;
+            } else {
+                lastNode->setRight(newNode);
+                newNode->setP(lastNode);
+                lastNode = newNode;
+            }
+        }
     }
 };
 
