@@ -181,7 +181,8 @@ const int N = 1000000;
 const int E = 10000;
 ```
 Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con cada estructura e insercion
-### Tablas de resultados 
+### Tablas de resultados
+Estos fueron los resultados en una de las ejecuciones que se realizaron. 
 | Prueba                        | 1       | 2       | 3       | Promedio |
 |-------------------------------|---------|---------|---------|----------|
 | Inserción aleatoria en lista  | 0.0506  | 0.0522  | 0.0519  | 0.0516   |
@@ -197,9 +198,9 @@ Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con ca
 | Búsqueda aleatoria en el BST  | 0.0010  | 0.0021  | 0.0011  | 0.0014   |
 | Búsqueda ordenada en el BST   | 42.2296 | 41.8137 | 40.8869 | 41.6434  |
 
-### Graficos que muestran resultados
-![Descripción de la imagen](images/bst.svg)
-![Descripción de la imagen](images/list.svg)
+### Graficos 
+![Descripción de la imagen](images/graph.svg)
+
 
 ### Consideraciones generales
 Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para realizar pruebas de insercion aleatoria y ordenada en el BST y el otro fue para hacer las pruebas de la lista doblemente enlazada. 
