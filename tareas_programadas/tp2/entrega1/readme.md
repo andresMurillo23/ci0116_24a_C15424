@@ -181,6 +181,22 @@ const int N = 1000000;
 const int E = 10000;
 ```
 Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con cada estructura e insercion
+### Tablas de resultados 
+| Prueba                        | 1       | 2       | 3       | Promedio |
+|-------------------------------|---------|---------|---------|----------|
+| Inserción aleatoria en lista  | 0.0506  | 0.0522  | 0.0519  | 0.0516   |
+| Inserción ordenada en lista   | 0.0415  | 0.0413  | 0.0400  | 0.0409   |
+| Inserción aleatoria en BST    | 0.6974  | 0.6998  | 0.6816  | 0.6929   |
+| Inserción ordenada en BST     | 0.0512  | 0.0505  | 0.0539  | 0.0519   |
+
+
+| Prueba                        | 1       | 2       | 3       | Promedio |
+|-------------------------------|---------|---------|---------|----------|
+| Búsqueda aleatoria en la lista| 29.5528 | 28.6725 | 30.3120 | 29.5124  |
+| Búsqueda ordenada en la lista | 28.6000 | 28.5617 | 28.5102 | 28.5573  |
+| Búsqueda aleatoria en el BST  | 0.0010  | 0.0021  | 0.0011  | 0.0014   |
+| Búsqueda ordenada en el BST   | 42.2296 | 41.8137 | 40.8869 | 41.6434  |
+
 ### Graficos que muestran resultados
 ![Descripción de la imagen](images/bst.svg)
 ![Descripción de la imagen](images/list.svg)

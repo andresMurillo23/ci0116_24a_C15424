@@ -16,7 +16,6 @@ void insercionOrdenada(bstree<int>& tree) {
     tree.CreateTreeFromArray(arr);
 }
 
-
 void buscarElementos(bstree<int>& tree) {
     std::random_device rd;
     std::mt19937 gen(rd());

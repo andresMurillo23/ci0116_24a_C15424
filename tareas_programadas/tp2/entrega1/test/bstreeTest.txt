@@ -1,16 +1,15 @@
 Pruebas de insercion ordenada:
-Tiempo de insercion ordenada: 0.037609 segundos
-Tiempo de busqueda tras insercion ordenada: 34.8128 segundos
-Tiempo de insercion ordenada: 0.037431 segundos
-Tiempo de busqueda tras insercion ordenada: 37.2887 segundos
-Tiempo de insercion ordenada: 0.043023 segundos
-Tiempo de busqueda tras insercion ordenada: 35.2829 segundos
-
+Tiempo de insercion ordenada: 0.051173 segundos
+Tiempo de busqueda tras insercion ordenada: 42.2296 segundos
+Tiempo de insercion ordenada: 0.050461 segundos
+Tiempo de busqueda tras insercion ordenada: 41.8137 segundos
+Tiempo de insercion ordenada: 0.053896 segundos
+Tiempo de busqueda tras insercion ordenada: 40.8869 segundos
 
 Pruebas de insercion aleatoria:
-Tiempo de insercion aleatoria: 0.685593 segundos
-Tiempo de busqueda tras insercion aleatoria: 0.001552 segundos
-Tiempo de insercion aleatoria: 0.610833 segundos
-Tiempo de busqueda tras insercion aleatoria: 0.001351 segundos
-Tiempo de insercion aleatoria: 0.629233 segundos
-Tiempo de busqueda tras insercion aleatoria: 0.001033 segundos
+Tiempo de insercion aleatoria: 0.697402 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.001032 segundos
+Tiempo de insercion aleatoria: 0.699788 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.002068 segundos
+Tiempo de insercion aleatoria: 0.681648 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.001103 segundos

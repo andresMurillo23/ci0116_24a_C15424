@@ -15,10 +15,8 @@
 template <typename T>
 class bstnode {
  private:
-    T key;               ///< Clave del nodo
-    bstnode<T> *p;       ///< Puntero al nodo padre
-    bstnode<T> *left;    ///< Puntero al hijo izquierdo
-    bstnode<T> *right;   ///< Puntero al hijo derecho
+    T key;                           ///< Clave del nodo
+    bstnode<T> *p, *left, *right;    ///< Punteros necesarios
 
  public:
     /**
