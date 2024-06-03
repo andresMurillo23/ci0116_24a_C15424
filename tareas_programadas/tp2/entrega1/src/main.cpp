@@ -1,50 +1,90 @@
 #include <iostream>
 #include <chrono>
 #include <random>
-#include <vector>
-#include "bstree.h"
+#include "llist.h"
 
 const int N = 1000000;
 const int E = 10000;
+const int REPETITIONS = 3;
 
-void insercionOrdenada(bstree<int>& tree) {
-    std::vector<int> arr;
-    arr.reserve(N);
+void insercionAleatoria(llist<int>& lista) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 2 * N);
+
     for (int i = 0; i < N; ++i) {
-        arr.push_back(i);
+        int key = dis(gen);
+        lista.Insert(new llnode<int>(key));
     }
-    tree.CreateTreeFromArray(arr);
 }
 
-void buscarElementos(bstree<int>& tree) {
+void insercionOrdenada(llist<int>& lista) {
+    for (int i = 0; i < N; ++i) {
+        lista.Insert(new llnode<int>(i));
+    }
+}
+
+void buscarElementos(llist<int>& lista) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 2 * N);
 
     for (int i = 0; i < E; ++i) {
         int key = dis(gen);
-        bstnode<int>* result = tree.IterativeSearch(tree.getRoot(), key);
+        lista.Search(key);
     }
 }
 
-double medirTiempoBusqueda(bstree<int>& tree) {
+void medirTiempoInsercionAleatoria() {
+    for (int i = 0; i < REPETITIONS; ++i) {
+        llist<int> lista;
+        auto start = std::chrono::high_resolution_clock::now();
+        insercionAleatoria(lista);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        std::cout << "Tiempo de insercion aleatoria (repeticion " << i + 1 << "): " << duration.count() << " segundos" << std::endl;
+    }
+}
+
+void medirTiempoInsercionOrdenada() {
+    for (int i = 0; i < REPETITIONS; ++i) {
+        llist<int> lista;
+        auto start = std::chrono::high_resolution_clock::now();
+        insercionOrdenada(lista);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end - start;
+        std::cout << "Tiempo de insercion ordenada (repeticion " << i + 1 << "): " << duration.count() << " segundos" << std::endl;
+    }
+}
+
+void medirTiempoBusqueda(llist<int>& lista) {
     auto start = std::chrono::high_resolution_clock::now();
-    buscarElementos(tree);
+    buscarElementos(lista);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration = end - start;
-    return duration.count();
+    std::cout << "Tiempo de busqueda: " << duration.count() << " segundos" << std::endl;
 }
 
 int main() {
-    bstree<int> tree;
-    auto start = std::chrono::high_resolution_clock::now();
-    insercionOrdenada(tree);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration = end - start;
-    std::cout << "Tiempo de insercion ordenada: " << duration.count() << " segundos" << std::endl;
+    std::cout << "Pruebas de inserción aleatoria:" << std::endl;
+    medirTiempoInsercionAleatoria();
 
-    double tiempoBusqueda = medirTiempoBusqueda(tree);
-    std::cout << "Tiempo de busqueda tras insercion ordenada: " << tiempoBusqueda << " segundos" << std::endl;
+    std::cout << "\nPruebas de insercion ordenada:" << std::endl;
+    medirTiempoInsercionOrdenada();
+
+    std::cout << "\nPruebas de búsqueda tras insercion aleatoria:" << std::endl;
+    for (int i = 0; i < REPETITIONS; ++i) {
+        llist<int> lista;
+        insercionAleatoria(lista);
+        medirTiempoBusqueda(lista);
+    }
+
+    std::cout << "\nPruebas de búsqueda tras insercion ordenada:" << std::endl;
+    for (int i = 0; i < REPETITIONS; ++i) {
+        llist<int> lista;
+        insercionOrdenada(lista);
+        medirTiempoBusqueda(lista);
+    }
 
     return 0;
 }
