@@ -128,6 +128,7 @@ class bstree {
             bstnode<T>* current = nodeStack.top();
             nodeStack.pop();
 
+            // Empujar los hijos izquierdo y derecho del nodo actual en la pila
             if (current->getLeft() != nullptr) {
                 nodeStack.push(current->getLeft());
             }
@@ -135,6 +136,7 @@ class bstree {
                 nodeStack.push(current->getRight());
             }
 
+            // Eliminar el nodo actual
             delete current;
         }
     }
@@ -160,10 +162,13 @@ class bstree {
         // Establece el padre del nuevo nodo
         z->setP(lastNode);
         if (lastNode == nullptr) {
-            setRoot(z);  // El árbol estaba vacío
+            // El árbol estaba vacío, el nuevo nodo se convierte en la raíz
+            setRoot(z);
         } else if (z->getKey() >= lastNode->getKey()) {
+            // Inserta el nuevo nodo como hijo derecho
             lastNode->setRight(z);
         } else {
+            // Inserta el nuevo nodo como hijo izquierdo
             lastNode->setLeft(z);
         }
     }
@@ -237,13 +242,16 @@ class bstree {
      */
     bstnode<T>* Successor(bstnode<T> *x) {
         if (x->getRight() != nullptr) {
+            // Si el nodo tiene un hijo derecho, el sucesor es el nodo mínimo en el subárbol derecho
             return Minimum(x->getRight());
         }
         bstnode<T>* y = x->getP();
+        // Subir por el árbol hasta encontrar un nodo que no sea el hijo derecho de su padre
         while (y != nullptr && x == y->getRight()) {
             x = y;
             y = y->getP();
         }
+        // Retornar el sucesor, que puede ser nullptr si no existe
         return y;
     }
 
@@ -254,13 +262,17 @@ class bstree {
      */
     void Transplant(bstnode<T> u, bstnode<T>* v) {
         if (u->getP() == nullptr) {
+            // Si u es la raíz del árbol, reemplazar la raíz con v
             root = v;
         } else if (u == u->getP()->getLeft()) {
+            // Si u es el hijo izquierdo de su padre, establecer el hijo izquierdo de su padre en v
             u->getP()->setLeft(v);
         } else {
+            // Si u es el hijo derecho de su padre, establecer el hijo derecho de su padre en v
             u->getP()->setRight(v);
         }
         if (v != nullptr) {
+            // Establecer el padre de v como el padre de u
             v->setP(u->getP());
         }
     }
@@ -271,20 +283,26 @@ class bstree {
      */
     void Delete(bstnode<T> z) {
         if (z->getLeft() == nullptr) {
+            // Caso 1: El nodo a eliminar no tiene hijo izquierdo
             Transplant(z, z->getRight());
         } else if (z->getRight() == nullptr) {
+            // Caso 2: El nodo a eliminar no tiene hijo derecho
             Transplant(z, z->getLeft());
         } else {
+            // Caso 3: El nodo a eliminar tiene ambos hijos
             bstnode<T>* y = Minimum(z->getRight());
             if (y != z->getRight()) {
+                // Transplanta el hijo derecho del sucesor
                 Transplant(y, y->getRight());
                 y->setRight(z->getRight());
                 y->getRight()->setP(y);
             }
+            // Transplanta el sucesor al lugar del nodo eliminado
             Transplant(z, y);
             y->setLeft(z->getLeft());
             y->getLeft()->setP(y);
         }
+        // Elimina el nodo z
         delete z;
     }
 
@@ -316,13 +334,18 @@ class bstree {
         bstnode<T>* lastNode = nullptr;
 
         for (const T& key : arr) {
+            // Crear un nuevo nodo con la clave actual
             bstnode<T>* newNode = new bstnode<T>(key);
+
             if (getRoot() == nullptr) {
+                // Si el árbol está vacío, establecer el nuevo nodo como la raíz
                 setRoot(newNode);
                 lastNode = newNode;
             } else {
+                // Si el árbol no está vacío, añadir el nuevo nodo como hijo derecho del último nodo
                 lastNode->setRight(newNode);
                 newNode->setP(lastNode);
+                // Actualizar 'lastNode' para que apunte al nuevo nodo
                 lastNode = newNode;
             }
         }
