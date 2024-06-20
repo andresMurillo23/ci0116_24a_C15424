@@ -1,0 +1,15 @@
+Pruebas de insercion ordenada:
+Tiempo de insercion ordenada: 0.051173 segundos
+Tiempo de busqueda tras insercion ordenada: 42.2296 segundos
+Tiempo de insercion ordenada: 0.050461 segundos
+Tiempo de busqueda tras insercion ordenada: 41.8137 segundos
+Tiempo de insercion ordenada: 0.053896 segundos
+Tiempo de busqueda tras insercion ordenada: 40.8869 segundos
+
+Pruebas de insercion aleatoria:
+Tiempo de insercion aleatoria: 0.697402 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.001032 segundos
+Tiempo de insercion aleatoria: 0.699788 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.002068 segundos
+Tiempo de insercion aleatoria: 0.681648 segundos
+Tiempo de busqueda tras insercion aleatoria: 0.001103 segundos

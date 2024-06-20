@@ -1,0 +1,50 @@
+#include <iostream>
+#include <chrono>
+#include <random>
+#include <vector>
+#include "bstree.h"
+
+const int N = 1000000;
+const int E = 10000;
+
+void insercionOrdenada(bstree<int>& tree) {
+    std::vector<int> arr;
+    arr.reserve(N);
+    for (int i = 0; i < N; ++i) {
+        arr.push_back(i);
+    }
+    tree.CreateTreeFromArray(arr);
+}
+
+void buscarElementos(bstree<int>& tree) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 2 * N);
+
+    for (int i = 0; i < E; ++i) {
+        int key = dis(gen);
+        bstnode<int>* result = tree.IterativeSearch(tree.getRoot(), key);
+    }
+}
+
+double medirTiempoBusqueda(bstree<int>& tree) {
+    auto start = std::chrono::high_resolution_clock::now();
+    buscarElementos(tree);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    return duration.count();
+}
+
+int main() {
+    bstree<int> tree;
+    auto start = std::chrono::high_resolution_clock::now();
+    insercionOrdenada(tree);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+    std::cout << "Tiempo de insercion ordenada: " << duration.count() << " segundos" << std::endl;
+
+    double tiempoBusqueda = medirTiempoBusqueda(tree);
+    std::cout << "Tiempo de busqueda tras insercion ordenada: " << tiempoBusqueda << " segundos" << std::endl;
+
+    return 0;
+}
