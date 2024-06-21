@@ -3,44 +3,61 @@
 
 #include <iostream>
 
+/// Enum para representar los colores de los nodos.
 enum colors { RED, BLACK };
 
-// Nodos del árbol:
+/// Clase que representa un nodo del árbol rojinegro.
 template <typename T>
 class rbtnode {
 public:
-    T key;
-    rbtnode<T> *p, *left, *right;
-    enum colors color;
-    
-    // Constructor por omisión.
+    T key; ///< Llave del nodo.
+    rbtnode<T> *p, *left, *right; ///< Punteros al padre, hijo izquierdo e hijo derecho.
+    enum colors color; ///< Color del nodo.
+
+    /// Constructor por omisión.
     rbtnode() : key(T()), p(nullptr), left(nullptr), right(nullptr), color(RED) {}
     
-    // Inicialización de datos miembro.
+    /**
+     * @brief Inicialización de datos miembro.
+     * 
+     * @param k Llave del nodo.
+     * @param w Puntero al padre.
+     * @param y Puntero al hijo izquierdo.
+     * @param z Puntero al hijo derecho.
+     * @param c Color del nodo.
+     */
     rbtnode(const T& k, rbtnode<T> *w = nullptr, rbtnode<T> *y = nullptr, rbtnode<T> *z = nullptr, enum colors c = RED)
         : key(k), p(w), left(y), right(z), color(c) {}
     
+    /// Destructor.
     ~rbtnode() {}
 };
 
-// Arbol rojinegro:
+/// Clase que representa un árbol rojinegro.
 template <typename T>
 class rbtree {
 public:
-    rbtnode<T> *root;    // raíz del árbol
-    rbtnode<T> *nil;     // nodo nil (hoja) del árbol
+    rbtnode<T> *root;  ///< Raíz del árbol.
+    rbtnode<T> *nil;  ///< Nodo nil (hoja) del árbol.
 
+    /// Constructor.
     rbtree() {
         nil = new rbtnode<T>();
         nil->color = BLACK;
         root = nil;
     }
 
+    /// Destructor.
     ~rbtree() {
         clear(root);
         delete nil;
     }
 
+    /**
+     * @brief Limpia el subárbol a partir de un nodo dado.
+     * 
+     * @param node Nodo desde el cual se limpia el subárbol.
+     */
     void clear(rbtnode<T> *node) {
         if (node != nil) {
             clear(node->left);
@@ -49,6 +66,11 @@ public:
         }
     }
 
+    /**
+     * @brief Inserta un nodo en el árbol rojinegro.
+     * 
+     * @param z Nodo a insertar.
+     */
     void Insert(rbtnode<T>* z) {
         rbtnode<T> *y = nil;
         rbtnode<T> *x = root;
@@ -72,6 +94,11 @@ public:
         RBInsertFixup(z);
     }
 
+    /**
+     * @brief Realiza un recorrido inorden del árbol.
+     * 
+     * @param x Nodo desde el cual se inicia el recorrido.
+     */
     void InorderWalk(rbtnode<T> *x) {
         if (x != nil) {
             InorderWalk(x->left);
@@ -80,6 +107,14 @@ public:
         }
     }
 
+    /**
+     * @brief Busca un nodo en el árbol.
+     * 
+     * @param x Nodo desde el cual se inicia la búsqueda.
+     * @param k Llave a buscar.
+     * 
+     * @return rbtnode<T>* Puntero al nodo encontrado o nil si no se encuentra.
+     */
     rbtnode<T>* Search(rbtnode<T> *x, const T& k) {
         while (x != nil && k != x->key) {
             if (k < x->key)
@@ -90,22 +125,51 @@ public:
         return x;
     }
 
+    /**
+     * @brief Busca un nodo en el árbol de forma iterativa.
+     * 
+     * @param x Nodo desde el cual se inicia la búsqueda.
+     * @param k Llave a buscar.
+     * 
+     * @return rbtnode<T>* Puntero al nodo encontrado o nil si no se encuentra.
+     */
     rbtnode<T>* IterativeSearch(rbtnode<T> *x, const T& k) {
         return Search(x, k);
     }
 
+    /**
+     * @brief Encuentra el nodo con la llave mínima en el subárbol dado.
+     * 
+     * @param x Nodo desde el cual se busca la llave mínima.
+     * 
+     * @return rbtnode<T>* Puntero al nodo con la llave mínima.
+     */
     rbtnode<T>* Minimum(rbtnode<T> *x) {
         while (x->left != nil)
             x = x->left;
         return x;
     }
 
+    /**
+     * @brief Encuentra el nodo con la llave máxima en el subárbol dado.
+     * 
+     * @param x Nodo desde el cual se busca la llave máxima.
+     * 
+     * @return rbtnode<T>* Puntero al nodo con la llave máxima.
+     */
     rbtnode<T>* Maximum(rbtnode<T> *x) {
         while (x->right != nil)
             x = x->right;
         return x;
     }
 
+    /**
+     * @brief Encuentra el sucesor de un nodo dado.
+     * 
+     * @param x Nodo del cual se busca el sucesor.
+     * 
+     * @return rbtnode<T>* Puntero al sucesor del nodo.
+     */
     rbtnode<T>* Successor(rbtnode<T> *x) {
         if (x->right != nil)
             return Minimum(x->right);
@@ -117,6 +181,11 @@ public:
         return y;
     }
 
+    /**
+     * @brief Realiza una rotación a la izquierda en el árbol.
+     * 
+     * @param x Nodo sobre el cual se realiza la rotación.
+     */
     void LeftRotate(rbtnode<T> *x) {
         rbtnode<T> *y = x->right;
         x->right = y->left;
@@ -133,6 +202,11 @@ public:
         x->p = y;
     }
 
+    /**
+     * @brief Realiza una rotación a la derecha en el árbol.
+     * 
+     * @param x Nodo sobre el cual se realiza la rotación.
+     */
     void RightRotate(rbtnode<T> *x) {
         rbtnode<T> *y = x->left;
         x->left = y->right;
@@ -149,6 +223,11 @@ public:
         x->p = y;
     }
 
+    /**
+     * @brief Corrige el árbol después de una inserción.
+     * 
+     * @param z Nodo insertado.
+     */
     void RBInsertFixup(rbtnode<T> *z) {
         while (z->p->color == RED) {
             if (z->p == z->p->p->left) {
@@ -188,6 +267,12 @@ public:
         root->color = BLACK;
     }
 
+    /**
+     * @brief Transplanta un subárbol en el lugar de otro subárbol.
+     * 
+     * @param u Nodo a ser reemplazado.
+     * @param v Nodo que reemplaza.
+     */
     void Transplant(rbtnode<T> *u, rbtnode<T> *v) {
         if (u->p == nil)
             root = v;
@@ -198,6 +283,11 @@ public:
         v->p = u->p;
     }
 
+    /**
+     * @brief Elimina un nodo del árbol rojinegro.
+     * 
+     * @param z Nodo a eliminar.
+     */
     void Delete(rbtnode<T> *z) {
         rbtnode<T> *y = z;
         rbtnode<T> *x;
@@ -228,6 +318,11 @@ public:
             RBDeleteFixup(x);
     }
 
+    /**
+     * @brief Corrige el árbol después de una eliminación.
+     * 
+     * @param x Nodo afectado por la eliminación.
+     */
     void RBDeleteFixup(rbtnode<T> *x) {
         while (x != root && x->color == BLACK) {
             if (x == x->p->left) {
