@@ -9,11 +9,12 @@ enum colors { RED, BLACK };
 /// Clase que representa un nodo del árbol rojinegro.
 template <typename T>
 class rbtnode {
-public:
+private:
     T key; ///< Llave del nodo.
     rbtnode<T> *p, *left, *right; ///< Punteros al padre, hijo izquierdo e hijo derecho.
     enum colors color; ///< Color del nodo.
 
+public:
     /// Constructor por omisión.
     rbtnode() : key(T()), p(nullptr), left(nullptr), right(nullptr), color(RED) {}
     
@@ -31,6 +32,78 @@ public:
     
     /// Destructor.
     ~rbtnode() {}
+
+    /// Getters
+    /**
+     * @brief Obtiene la llave del nodo.
+     * 
+     * @return La llave del nodo.
+     */
+    T getKey() const { return key; }
+
+    /**
+     * @brief Obtiene el padre del nodo.
+     * 
+     * @return El padre del nodo.
+     */
+    rbtnode<T>* getParent() const { return p; }
+
+    /**
+     * @brief Obtiene el hijo izquierdo del nodo.
+     * 
+     * @return El hijo izquierdo del nodo.
+     */
+    rbtnode<T>* getLeft() const { return left; }
+
+    /**
+     * @brief Obtiene el hijo derecho del nodo.
+     * 
+     * @return El hijo derecho del nodo.
+     */
+    rbtnode<T>* getRight() const { return right; }
+
+    /**
+     * @brief Obtiene el color del nodo.
+     * 
+     * @return El color del nodo.
+     */
+    colors getColor() const { return color; }
+
+    /// Setters
+    /**
+     * @brief Establece la llave del nodo.
+     * 
+     * @param k La nueva llave del nodo.
+     */
+    void setKey(const T& k) { key = k; }
+
+    /**
+     * @brief Establece el padre del nodo.
+     * 
+     * @param w El nuevo padre del nodo.
+     */
+    void setParent(rbtnode<T>* w) { p = w; }
+
+    /**
+     * @brief Establece el hijo izquierdo del nodo.
+     * 
+     * @param y El nuevo hijo izquierdo del nodo.
+     */
+    void setLeft(rbtnode<T>* y) { left = y; }
+
+    /**
+     * @brief Establece el hijo derecho del nodo.
+     * 
+     * @param z El nuevo hijo derecho del nodo.
+     */
+    void setRight(rbtnode<T>* z) { right = z; }
+
+    /**
+     * @brief Establece el color del nodo.
+     * 
+     * @param c El nuevo color del nodo.
+     */
+    void setColor(colors c) { color = c; }
 };
 
 /// Clase que representa un árbol rojinegro.
@@ -43,7 +116,7 @@ public:
     /// Constructor.
     rbtree() {
         nil = new rbtnode<T>();
-        nil->color = BLACK;
+        nil->setColor(BLACK);
         root = nil;
     }
 
@@ -60,8 +133,8 @@ public:
      */
     void clear(rbtnode<T> *node) {
         if (node != nil) {
-            clear(node->left);
-            clear(node->right);
+            clear(node->getLeft());
+            clear(node->getRight());
             delete node;
         }
     }
@@ -76,21 +149,21 @@ public:
         rbtnode<T> *x = root;
         while (x != nil) {
             y = x;
-            if (z->key < x->key)
-                x = x->left;
+            if (z->getKey() < x->getKey())
+                x = x->getLeft();
             else
-                x = x->right;
+                x = x->getRight();
         }
-        z->p = y;
+        z->setParent(y);
         if (y == nil)
             root = z;
-        else if (z->key < y->key)
-            y->left = z;
+        else if (z->getKey() < y->getKey())
+            y->setLeft(z);
         else
-            y->right = z;
-        z->left = nil;
-        z->right = nil;
-        z->color = RED;
+            y->setRight(z);
+        z->setLeft(nil);
+        z->setRight(nil);
+        z->setColor(RED);
         RBInsertFixup(z);
     }
 
@@ -101,9 +174,9 @@ public:
      */
     void InorderWalk(rbtnode<T> *x) {
         if (x != nil) {
-            InorderWalk(x->left);
-            std::cout << x->key << std::endl;
-            InorderWalk(x->right);
+            InorderWalk(x->getLeft());
+            std::cout << x->getKey() << std::endl;
+            InorderWalk(x->getRight());
         }
     }
 
@@ -116,11 +189,11 @@ public:
      * @return rbtnode<T>* Puntero al nodo encontrado o nil si no se encuentra.
      */
     rbtnode<T>* Search(rbtnode<T> *x, const T& k) {
-        while (x != nil && k != x->key) {
-            if (k < x->key)
-                x = x->left;
+        while (x != nil && k != x->getKey()) {
+            if (k < x->getKey())
+                x = x->getLeft();
             else
-                x = x->right;
+                x = x->getRight();
         }
         return x;
     }
@@ -145,8 +218,8 @@ public:
      * @return rbtnode<T>* Puntero al nodo con la llave mínima.
      */
     rbtnode<T>* Minimum(rbtnode<T> *x) {
-        while (x->left != nil)
-            x = x->left;
+        while (x->getLeft() != nil)
+            x = x->getLeft();
         return x;
     }
 
@@ -158,8 +231,8 @@ public:
      * @return rbtnode<T>* Puntero al nodo con la llave máxima.
      */
     rbtnode<T>* Maximum(rbtnode<T> *x) {
-        while (x->right != nil)
-            x = x->right;
+        while (x->getRight() != nil)
+            x = x->getRight();
         return x;
     }
 
@@ -171,12 +244,12 @@ public:
      * @return rbtnode<T>* Puntero al sucesor del nodo.
      */
     rbtnode<T>* Successor(rbtnode<T> *x) {
-        if (x->right != nil)
-            return Minimum(x->right);
-        rbtnode<T> *y = x->p;
-        while (y != nil && x == y->right) {
+        if (x->getRight() != nil)
+            return Minimum(x->getRight());
+        rbtnode<T> *y = x->getParent();
+        while (y != nil && x == y->getRight()) {
             x = y;
-            y = y->p;
+            y = y->getParent();
         }
         return y;
     }
@@ -187,19 +260,19 @@ public:
      * @param x Nodo sobre el cual se realiza la rotación.
      */
     void LeftRotate(rbtnode<T> *x) {
-        rbtnode<T> *y = x->right;
-        x->right = y->left;
-        if (y->left != nil)
-            y->left->p = x;
-        y->p = x->p;
-        if (x->p == nil)
+        rbtnode<T> *y = x->getRight();
+        x->setRight(y->getLeft());
+        if (y->getLeft() != nil)
+            y->getLeft()->setParent(x);
+        y->setParent(x->getParent());
+        if (x->getParent() == nil)
             root = y;
-        else if (x == x->p->left)
-            x->p->left = y;
+        else if (x == x->getParent()->getLeft())
+            x->getParent()->setLeft(y);
         else
-            x->p->right = y;
-        y->left = x;
-        x->p = y;
+            x->getParent()->setRight(y);
+        y->setLeft(x);
+        x->setParent(y);
     }
 
     /**
@@ -208,19 +281,19 @@ public:
      * @param x Nodo sobre el cual se realiza la rotación.
      */
     void RightRotate(rbtnode<T> *x) {
-        rbtnode<T> *y = x->left;
-        x->left = y->right;
-        if (y->right != nil)
-            y->right->p = x;
-        y->p = x->p;
-        if (x->p == nil)
+        rbtnode<T> *y = x->getLeft();
+        x->setLeft(y->getRight());
+        if (y->getRight() != nil)
+            y->getRight()->setParent(x);
+        y->setParent(x->getParent());
+        if (x->getParent() == nil)
             root = y;
-        else if (x == x->p->right)
-            x->p->right = y;
+        else if (x == x->getParent()->getRight())
+            x->getParent()->setRight(y);
         else
-            x->p->left = y;
-        y->right = x;
-        x->p = y;
+            x->getParent()->setLeft(y);
+        y->setRight(x);
+        x->setParent(y);
     }
 
     /**
@@ -229,42 +302,42 @@ public:
      * @param z Nodo insertado.
      */
     void RBInsertFixup(rbtnode<T> *z) {
-        while (z->p->color == RED) {
-            if (z->p == z->p->p->left) {
-                rbtnode<T> *y = z->p->p->right;
-                if (y->color == RED) {
-                    z->p->color = BLACK;
-                    y->color = BLACK;
-                    z->p->p->color = RED;
-                    z = z->p->p;
+        while (z->getParent()->getColor() == RED) {
+            if (z->getParent() == z->getParent()->getParent()->getLeft()) {
+                rbtnode<T> *y = z->getParent()->getParent()->getRight();
+                if (y->getColor() == RED) {
+                    z->getParent()->setColor(BLACK);
+                    y->setColor(BLACK);
+                    z->getParent()->getParent()->setColor(RED);
+                    z = z->getParent()->getParent();
                 } else {
-                    if (z == z->p->right) {
-                        z = z->p;
+                    if (z == z->getParent()->getRight()) {
+                        z = z->getParent();
                         LeftRotate(z);
                     }
-                    z->p->color = BLACK;
-                    z->p->p->color = RED;
-                    RightRotate(z->p->p);
+                    z->getParent()->setColor(BLACK);
+                    z->getParent()->getParent()->setColor(RED);
+                    RightRotate(z->getParent()->getParent());
                 }
             } else {
-                rbtnode<T> *y = z->p->p->left;
-                if (y->color == RED) {
-                    z->p->color = BLACK;
-                    y->color = BLACK;
-                    z->p->p->color = RED;
-                    z = z->p->p;
+                rbtnode<T> *y = z->getParent()->getParent()->getLeft();
+                if (y->getColor() == RED) {
+                    z->getParent()->setColor(BLACK);
+                    y->setColor(BLACK);
+                    z->getParent()->getParent()->setColor(RED);
+                    z = z->getParent()->getParent();
                 } else {
-                    if (z == z->p->left) {
-                        z = z->p;
+                    if (z == z->getParent()->getLeft()) {
+                        z = z->getParent();
                         RightRotate(z);
                     }
-                    z->p->color = BLACK;
-                    z->p->p->color = RED;
-                    LeftRotate(z->p->p);
+                    z->getParent()->setColor(BLACK);
+                    z->getParent()->getParent()->setColor(RED);
+                    LeftRotate(z->getParent()->getParent());
                 }
             }
         }
-        root->color = BLACK;
+        root->setColor(BLACK);
     }
 
     /**
@@ -274,13 +347,13 @@ public:
      * @param v Nodo que reemplaza.
      */
     void Transplant(rbtnode<T> *u, rbtnode<T> *v) {
-        if (u->p == nil)
+        if (u->getParent() == nil)
             root = v;
-        else if (u == u->p->left)
-            u->p->left = v;
+        else if (u == u->getParent()->getLeft())
+            u->getParent()->setLeft(v);
         else
-            u->p->right = v;
-        v->p = u->p;
+            u->getParent()->setRight(v);
+        v->setParent(u->getParent());
     }
 
     /**
@@ -291,28 +364,28 @@ public:
     void Delete(rbtnode<T> *z) {
         rbtnode<T> *y = z;
         rbtnode<T> *x;
-        enum colors y_original_color = y->color;
-        if (z->left == nil) {
-            x = z->right;
-            Transplant(z, z->right);
-        } else if (z->right == nil) {
-            x = z->left;
-            Transplant(z, z->left);
+        enum colors y_original_color = y->getColor();
+        if (z->getLeft() == nil) {
+            x = z->getRight();
+            Transplant(z, z->getRight());
+        } else if (z->getRight() == nil) {
+            x = z->getLeft();
+            Transplant(z, z->getLeft());
         } else {
-            y = Minimum(z->right);
-            y_original_color = y->color;
-            x = y->right;
-            if (y->p == z)
-                x->p = y;
+            y = Minimum(z->getRight());
+            y_original_color = y->getColor();
+            x = y->getRight();
+            if (y->getParent() == z)
+                x->setParent(y);
             else {
-                Transplant(y, y->right);
-                y->right = z->right;
-                y->right->p = y;
+                Transplant(y, y->getRight());
+                y->setRight(z->getRight());
+                y->getRight()->setParent(y);
             }
             Transplant(z, y);
-            y->left = z->left;
-            y->left->p = y;
-            y->color = z->color;
+            y->setLeft(z->getLeft());
+            y->getLeft()->setParent(y);
+            y->setColor(z->getColor());
         }
         if (y_original_color == BLACK)
             RBDeleteFixup(x);
@@ -324,58 +397,67 @@ public:
      * @param x Nodo afectado por la eliminación.
      */
     void RBDeleteFixup(rbtnode<T> *x) {
-        while (x != root && x->color == BLACK) {
-            if (x == x->p->left) {
-                rbtnode<T> *w = x->p->right;
-                if (w->color == RED) {
-                    w->color = BLACK;
-                    x->p->color = RED;
-                    LeftRotate(x->p);
-                    w = x->p->right;
+        while (x != root && x->getColor() == BLACK) {
+            if (x == x->getParent()->getLeft()) {
+                rbtnode<T> *w = x->getParent()->getRight();
+                if (w->getColor() == RED) {
+                    w->setColor(BLACK);
+                    x->getParent()->setColor(RED);
+                    LeftRotate(x->getParent());
+                    w = x->getParent()->getRight();
                 }
-                if (w->left->color == BLACK && w->right->color == BLACK) {
-                    w->color = RED;
-                    x = x->p;
+                if (w->getLeft()->getColor() == BLACK && w->getRight()->getColor() == BLACK) {
+                    w->setColor(RED);
+                    x = x->getParent();
                 } else {
-                    if (w->right->color == BLACK) {
-                        w->left->color = BLACK;
-                        w->color = RED;
+                    if (w->getRight()->getColor() == BLACK) {
+                        w->getLeft()->setColor(BLACK);
+                        w->setColor(RED);
                         RightRotate(w);
-                        w = x->p->right;
+                        w = x->getParent()->getRight();
                     }
-                    w->color = x->p->color;
-                    x->p->color = BLACK;
-                    w->right->color = BLACK;
-                    LeftRotate(x->p);
+                    w->setColor(x->getParent()->getColor());
+                    x->getParent()->setColor(BLACK);
+                    w->getRight()->setColor(BLACK);
+                    LeftRotate(x->getParent());
                     x = root;
                 }
             } else {
-                rbtnode<T> *w = x->p->left;
-                if (w->color == RED) {
-                    w->color = BLACK;
-                    x->p->color = RED;
-                    RightRotate(x->p);
-                    w = x->p->left;
+                rbtnode<T> *w = x->getParent()->getLeft();
+                if (w->getColor() == RED) {
+                    w->setColor(BLACK);
+                    x->getParent()->setColor(RED);
+                    RightRotate(x->getParent());
+                    w = x->getParent()->getLeft();
                 }
-                if (w->right->color == BLACK && w->left->color == BLACK) {
-                    w->color = RED;
-                    x = x->p;
+                if (w->getRight()->getColor() == BLACK && w->getLeft()->getColor() == BLACK) {
+                    w->setColor(RED);
+                    x = x->getParent();
                 } else {
-                    if (w->left->color == BLACK) {
-                        w->right->color = BLACK;
-                        w->color = RED;
+                    if (w->getLeft()->getColor() == BLACK) {
+                        w->getRight()->setColor(BLACK);
+                        w->setColor(RED);
                         LeftRotate(w);
-                        w = x->p->left;
+                        w = x->getParent()->getLeft();
                     }
-                    w->color = x->p->color;
-                    x->p->color = BLACK;
-                    w->left->color = BLACK;
-                    RightRotate(x->p);
+                    w->setColor(x->getParent()->getColor());
+                    x->getParent()->setColor(BLACK);
+                    w->getLeft()->setColor(BLACK);
+                    RightRotate(x->getParent());
                     x = root;
                 }
             }
         }
-        x->color = BLACK;
+        x->setColor(BLACK);
+    }
+
+    /**
+     * @brief Imprime los datos de la tarea.
+     * 
+     * @return Una cadena con los datos de la tarea.
+     */
+    std::string ImprimirDatosDeTarea() {
+        return "c15424 Tarea 2 Etapa 2";
     }
 };
 

@@ -4,6 +4,4 @@ build/
 doc/
 *.sh
 *.exe
-*.docx
 *.tmp
-*.doc

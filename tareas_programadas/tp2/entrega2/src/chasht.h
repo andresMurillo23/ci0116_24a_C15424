@@ -1,8 +1,6 @@
-// Copyright [2024] <Copyright Andres Murillo>
 #ifndef chtable_h
 #define chtable_h
 
-#include <list>
 #include <vector>
 #include <stdexcept>
 #include "llistD.h"
@@ -22,7 +20,7 @@ public:
      * @param sz Tamaño de la tabla.
      */
     chtable(int sz) : size(sz), table(sz) {}
-    
+
     /**
      * @brief Destructor que borra la tabla.
      */
@@ -32,21 +30,12 @@ public:
      * @brief Inserta el elemento en la tabla.
      * 
      * @param k Elemento a insertar.
-     * 
-     * @throw std::overflow_error Si la tabla está llena.
      */
     void Insert(const T& k) {
-        int i = 0;
-        int q;
-        do {
-            q = hashFunction(k, i);
-            if (table[q].Search(k) == nullptr) {
-                table[q].Insert(new llnode<T>(k));
-                return;
-            }
-            i++;
-        } while (i < size);
-        throw std::overflow_error("hash table overflow");
+        int index = hashFunction(k);
+        if (table[index].Search(k) == nullptr) {
+            table[index].Insert(new llnode<T>(k));
+        }
     }
 
     /**
@@ -57,16 +46,11 @@ public:
      * @return T* Puntero a la llave encontrada o nullptr si no se encuentra.
      */
     T* Search(const T& k) {
-        int i = 0;
-        int q;
-        do {
-            q = hashFunction(k, i);
-            llnode<T>* node = table[q].Search(k);
-            if (node != nullptr && node->getKey() == k) {
-                return &node->getKeyRef();
-            }
-            i++;
-        } while (i < size && table[q].Search(k) != nullptr);
+        int index = hashFunction(k);
+        llnode<T>* node = table[index].Search(k);
+        if (node != nullptr) {
+            return &node->getKeyRef();
+        }
         return nullptr;
     }
 
@@ -76,26 +60,11 @@ public:
      * @param k Elemento a eliminar.
      */
     void Delete(const T& k) {
-        int i = 0;
-        int q;
-        do {
-            q = hashFunction(k, i);
-            llnode<T>* node = table[q].Search(k);
-            if (node != nullptr && node->getKey() == k) {
-                table[q].Delete(node);
-                return;
-            }
-            i++;
-        } while (i < size && table[q].Search(k) != nullptr);
-    }
-
-    /**
-     * @brief Imprime los datos de la tarea.
-     * 
-     * @return std::string Datos de la tarea.
-     */
-    std::string ImprimirDatosDeTarea() {
-        return "c15424 Tarea 2 Etapa 2";
+        int index = hashFunction(k);
+        llnode<T>* node = table[index].Search(k);
+        if (node != nullptr) {
+            table[index].Delete(node);
+        }
     }
 
 private:
@@ -103,12 +72,11 @@ private:
      * @brief Función de dispersión.
      * 
      * @param k Llave a dispersar.
-     * @param i Número de intento de dispersión.
      * 
      * @return int Resultado de la función de dispersión.
      */
-    int hashFunction(const T& k, int i) const {
-        return (k + i) % size;
+    int hashFunction(const T& k) const {
+        return k % size;
     }
 
     int size; ///< Número de entradas en la tabla.
