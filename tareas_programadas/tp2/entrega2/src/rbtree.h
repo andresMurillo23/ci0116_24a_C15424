@@ -3,21 +3,28 @@
 
 #include <iostream>
 
-/// Enum para representar los colores de los nodos.
+// Enum para representar los colores de los nodos.
 enum colors { RED, BLACK };
 
-/// Clase que representa un nodo del árbol rojinegro.
+// Clase que representa un nodo del árbol rojinegro.
 template <typename T>
 class rbtnode {
 private:
-    T key; ///< Llave del nodo.
-    rbtnode<T> *p, *left, *right; ///< Punteros al padre, hijo izquierdo e hijo derecho.
-    enum colors color; ///< Color del nodo.
+    T key;  ///< Llave del nodo.
+    rbtnode<T> *p, *left, *right;    ///< Punteros al padre, hijo izquierdo e hijo derecho.
+    enum colors color;               ///< Color del nodo.
 
 public:
-    /// Constructor por omisión.
+    /**
+     * @brief Constructor por omisión.
+     * 
+     * Inicializa el nodo con valores predeterminados.
+     * La llave se inicializa con el valor por defecto del tipo T.
+     * Los punteros se inicializan a nullptr.
+     * El color se inicializa a RED.
+     */
     rbtnode() : key(T()), p(nullptr), left(nullptr), right(nullptr), color(RED) {}
-    
+
     /**
      * @brief Inicialización de datos miembro.
      * 
@@ -29,11 +36,15 @@ public:
      */
     rbtnode(const T& k, rbtnode<T> *w = nullptr, rbtnode<T> *y = nullptr, rbtnode<T> *z = nullptr, enum colors c = RED)
         : key(k), p(w), left(y), right(z), color(c) {}
-    
-    /// Destructor.
+
+    /**
+     * @brief Destructor.
+     * 
+     * Destructor por defecto para el nodo.
+     */
     ~rbtnode() {}
 
-    /// Getters
+    // Getters
     /**
      * @brief Obtiene la llave del nodo.
      * 
@@ -106,21 +117,21 @@ public:
     void setColor(colors c) { color = c; }
 };
 
-/// Clase que representa un árbol rojinegro.
+// Clase que representa un árbol rojinegro.
 template <typename T>
 class rbtree {
 public:
-    rbtnode<T> *root;  ///< Raíz del árbol.
-    rbtnode<T> *nil;  ///< Nodo nil (hoja) del árbol.
+    rbtnode<T> *root;   ///< Raíz del árbol.
+    rbtnode<T> *nil;    ///< Nodo nil (hoja) del árbol.
 
-    /// Constructor.
+    // Constructor.
     rbtree() {
         nil = new rbtnode<T>();
         nil->setColor(BLACK);
         root = nil;
     }
 
-    /// Destructor.
+    // Destructor.
     ~rbtree() {
         clear(root);
         delete nil;
@@ -461,4 +472,4 @@ public:
     }
 };
 
-#endif // rbtree_h
+#endif  // rbtree_h

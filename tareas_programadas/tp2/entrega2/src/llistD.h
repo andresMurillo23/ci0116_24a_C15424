@@ -102,7 +102,7 @@ public:
 template <typename T>
 class llist {
 private:
-    llnode<T> *nil;  ///< Nodo centinela.
+    llnode<T> *nil;   ///< Nodo centinela.
 
 public:
     /**
@@ -132,13 +132,12 @@ public:
      * @param x Puntero al nodo a insertar.
      */
     void Insert(llnode<T> *x) {
-        if (!x) {
-            throw std::invalid_argument("El nodo a insertar no puede ser nulo");
+        if (x) {
+            x->setNext(nil->getNext());
+            nil->getNext()->setPrev(x);
+            nil->setNext(x);
+            x->setPrev(nil);
         }
-        x->setNext(nil->getNext());
-        nil->getNext()->setPrev(x);
-        nil->setNext(x);
-        x->setPrev(nil);
     }
 
     /**
@@ -166,12 +165,11 @@ public:
      * @param x Puntero al nodo a eliminar.
      */
     void Delete(llnode<T> *x) {
-        if (!x || x == nil) {
-            throw std::invalid_argument("No puede ser nulo ni centinela");
+        if (x && x != nil) {
+            x->getPrev()->setNext(x->getNext());
+            x->getNext()->setPrev(x->getPrev());
+            delete x;
         }
-        x->getPrev()->setNext(x->getNext());
-        x->getNext()->setPrev(x->getPrev());
-        delete x;
     }
 
     /**
@@ -183,4 +181,4 @@ public:
     }
 };
 
-#endif // llistd_h
+#endif  // llistd_h

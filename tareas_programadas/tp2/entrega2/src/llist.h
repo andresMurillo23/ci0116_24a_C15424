@@ -165,4 +165,4 @@ class llist {
     }
 };
 
-#endif // llist_h
+#endif  // llist_h

@@ -67,6 +67,15 @@ public:
         }
     }
 
+    /**
+     * @brief Imprime los datos de la tarea.
+     * 
+     * @return std::string Datos de la tarea.
+     */
+    std::string ImprimirDatosDeTarea() {
+        return "c15424 Tarea 2 Etapa 1";
+    }
+
 private:
     /**
      * @brief Función de dispersión.
@@ -79,8 +88,8 @@ private:
         return k % size;
     }
 
-    int size; ///< Número de entradas en la tabla.
-    std::vector<llist<T>> table; ///< La tabla es un vector de listas enlazadas.
+    int size;                      ///< Número de entradas en la tabla.
+    std::vector<llist<T>> table;   ///< La tabla es un vector de listas enlazadas.
 };
 
-#endif /* chtable_h */
+#endif  // chtable_h
