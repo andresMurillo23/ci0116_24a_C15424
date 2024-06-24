@@ -10,13 +10,6 @@ LIST-SEARCH(L, k)
 3        x = x.next
 4    return x
 
-LIST-PREPEND(L, x)
-1    x.next = L.head
-2    x.prev = NIL
-3    if L.head ≠ NIL
-4        L.head.prev = x
-5    L.head = x
-
 LIST-INSERT(x, y)
 1    x.next = y.next
 2    x.prev = y
@@ -31,33 +24,9 @@ LIST-DELETE(L, x)
 4    if x.next ≠ NIL
 5        x.next.prev = x.prev
 
-LIST-DELETE'(x)
-1    x.prev.next = x.next
-2    x.next.prev = x.prev
-
-LIST-INSERT'(x, y)
-1    x.next = y.next
-2    x.prev = y
-3    y.next.prev = x
-4    y.next = x
-
-LIST-SEARCH'(L, k)
-1    L.nil.key = k  // store the key in the sentinel to guarantee it is in list
-2    x = L.nil.next // start at the head of the list
-3    while x.key ≠ k
-4        x = x.next
-5    if x == L.nil
-6        return NIL // k was not really in the list
-7    else return x  // found k in element x
-
 ```
 ### Binary Search Tree
 ```
-INORDER-TREE-WALK (x)
-1 if x ≠ NIL
-2    INORDER-TREE-WALK (x.left)
-3    print x.key
-4    INORDER-TREE-WALK (x.right)
 
 TREE-SEARCH (x, k)
 1 if x == NIL or k == x.key
@@ -72,26 +41,6 @@ ITERATIVE-TREE-SEARCH (x, k)
 3        x = x.left
 4    else x = x.right
 5 return x
-
-TREE-MINIMUM (x)
-1 while x.left ≠ NIL
-2    x = x.left
-3 return x
-
-TREE-MAXIMUM (x)
-1 while x.right ≠ NIL
-2    x = x.right
-3 return x
-
-TREE-SUCCESSOR (x)
-1 if x.right ≠ NIL
-2    return TREE-MINIMUM (x.right)
-3 else
-4    y = x.p
-5    while y ≠ NIL and x == y.right
-6        x = y
-7        y = y.p
-8    return y
 
 TREE-INSERT (T, z)
 1    x = T.root
@@ -415,27 +364,37 @@ const int E = 10000;
 Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con cada estructura e insercion
 ### Tablas de resultados
 Estos fueron los resultados en una de las ejecuciones que se realizaron. 
-| Prueba                        | 1       | 2       | 3       | Promedio |
-|-------------------------------|---------|---------|---------|----------|
-| Inserción aleatoria en lista  | 0.0506  | 0.0522  | 0.0519  | 0.0516   |
-| Inserción ordenada en lista   | 0.0415  | 0.0413  | 0.0400  | 0.0409   |
-| Inserción aleatoria en BST    | 0.6974  | 0.6998  | 0.6816  | 0.6929   |
-| Inserción ordenada en BST     | 0.0512  | 0.0505  | 0.0539  | 0.0519   |
 
 
-| Prueba                        | 1       | 2       | 3       | Promedio |
-|-------------------------------|---------|---------|---------|----------|
-| Búsqueda aleatoria en la lista| 29.5528 | 28.6725 | 30.3120 | 29.5124  |
-| Búsqueda ordenada en la lista | 28.6000 | 28.5617 | 28.5102 | 28.5573  |
-| Búsqueda aleatoria en el BST  | 0.0010  | 0.0021  | 0.0011  | 0.0014   |
-| Búsqueda ordenada en el BST   | 42.2296 | 41.8137 | 40.8869 | 41.6434  |
+#### Tiempos de Inserción
 
-### Graficos 
-![Descripción de la imagen](images/graph.svg)
+| Prueba                         | 1      | 2      | 3      | Promedio |
+|-------------------------------|--------|--------|--------|----------|
+| Inserción aleatoria en lista   | 0.0506 | 0.0522 | 0.0519 | 0.0516   |
+| Inserción ordenada en lista    | 0.0415 | 0.0413 | 0.0400 | 0.0409   |
+| Inserción aleatoria en BST     | 0.6974 | 0.6998 | 0.6816 | 0.6929   |
+| Inserción ordenada en BST      | 0.0512 | 0.0505 | 0.0539 | 0.0519   |
+| Inserción aleatoria en RBT     | 0.5320 | 0.4937 | 0.4805 | 0.5021   |
+| Inserción ordenada en RBT      | 0.1120 | 0.1143 | 0.1126 | 0.113    |
+| Inserción aleatoria en hash    | 0.2055 | 0.1781 | 0.1792 | 0.1876   |
+| Inserción ordenada en hash     | 0.0451 | 0.0446 | 0.0436 | 0.0444   |
+
+#### Tiempos de Búsqueda
+
+| Prueba                             | 1       | 2       | 3       | Promedio |
+|-----------------------------------|---------|---------|---------|----------|
+| Búsqueda aleatoria en la lista    | 29.5528 | 28.6725 | 30.3120 | 29.5124  |
+| Búsqueda ordenada en la lista     | 28.6000 | 28.5617 | 28.5102 | 28.5573  |
+| Búsqueda aleatoria en el BST      | 0.0010  | 0.0021  | 0.0011  | 0.0014   |
+| Búsqueda ordenada en el BST       | 42.2296 | 41.8137 | 40.8869 | 41.6434  |
+| Búsqueda aleatoria en la RBT      | 0.0010  | 0.0023  | 0.0012  | 0.0015   |
+| Búsqueda ordenada en la RBT       | 0.0039  | 0.0045  | 0.0034  | 0.0039   |
+| Búsqueda aleatoria en hash        | 0.0016  | 0.0012  | 0.0011  | 0.0013   |
+| Búsqueda ordenada en hash         | 0.0012  | 0.0015  | 0.0021  | 0.0016   |
 
 
 ### Consideraciones generales
-Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para realizar pruebas de insercion aleatoria y ordenada en el BST y el otro fue para hacer las pruebas de la lista doblemente enlazada. 
+Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para realizar pruebas de insercion aleatoria y ordenada en el BST y el otro fue para hacer las pruebas de la lista doblemente enlazada. Los demas main se dejaron en la carpeta de test.
 
 ### Referencias usadas
 
