@@ -1,3 +1,4 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #ifndef chtable_h
 #define chtable_h
 
@@ -73,7 +74,7 @@ public:
      * @return std::string Datos de la tarea.
      */
     std::string ImprimirDatosDeTarea() {
-        return "c15424 Tarea 2 Etapa 1";
+        return "c15424 Tarea 2 Etapa 2";
     }
 
 private:

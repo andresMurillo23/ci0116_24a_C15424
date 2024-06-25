@@ -1,3 +1,4 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #ifndef rbtree_h
 #define rbtree_h
 

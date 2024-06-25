@@ -1,3 +1,4 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #include <iostream>
 #include <chrono>
 #include <random>

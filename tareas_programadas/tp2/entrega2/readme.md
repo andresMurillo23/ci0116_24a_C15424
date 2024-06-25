@@ -1,9 +1,12 @@
-# Tarea Programada II, Entrega I, Estructuras de Datos
+# Tarea Programada II, Entrega II, Estructuras de Datos
 
-Esta tarea consta de un analisis de listas doblemente enlazadas y arboles binarios de busqueda, se pasan por pruebas para ver los tiempos resultantes.
-## Pseudocodigos 
-### Linked List 
-```
+Esta tarea consta de un analisis de listas doblemente enlazadas y arboles binarios de busqueda, arboles rojinegros y tablas hash los cuales se pasan por pruebas para ver los tiempos resultantes y realizar un reporte.
+
+## Pseudocodigos
+
+### Linked List
+
+```c
 LIST-SEARCH(L, k)
 1    x = L.head
 2    while x ≠ NIL and x.key ≠ k
@@ -25,9 +28,10 @@ LIST-DELETE(L, x)
 5        x.next.prev = x.prev
 
 ```
-### Binary Search Tree
-```
 
+### Binary Search Tree
+
+```c
 TREE-SEARCH (x, k)
 1 if x == NIL or k == x.key
 2    return x
@@ -80,9 +84,10 @@ TREE-DELETE (T, z)
 11       y.left = z.left
 12       y.left.p = y
 ```
-### Red-Black Trees 
 
-``` txt
+### Red-Black Trees
+
+```c
 
 Left-Rotate(T, x)
 1.  y = x.right
@@ -283,7 +288,7 @@ RB-Delete-Fixup(T, x)
 
 ## Hash Tables
 
-```txt
+```c
 Hash-Insert(T, k)
 1.  i = 0
 2.  repeat
@@ -334,7 +339,8 @@ Estos pseudocodigos fueron obtenidos del libro Introduction to Algorithms, IV ed
 ### Pruebas
 
 Para la realizacion de pruebas fue creado un main el cual al correrlo muestra salidas como estas:
-```
+
+```sh
 Pruebas de insercion aleatoria:
 Tiempo de insercion aleatoria (repeticion 1): 0.054989 segundos
 Tiempo de insercion aleatoria (repeticion 2): 0.052722 segundos
@@ -355,14 +361,20 @@ Tiempo de busqueda: 29.3746 segundos
 Tiempo de busqueda: 27.399 segundos
 Tiempo de busqueda: 27.74 segundos
 ```
-Esto para mayor facilidad en la recoleccion de los tiempos. 
+
+Esto para mayor facilidad en la recoleccion de los tiempos.
+
 ### Pruebas realizadas con los siguientes datos
-```
+
+```sh
 const int N = 1000000;
 const int E = 10000;
 ```
+
 Como decia el enunciado, se ejectuaron las tres pruebas correspondientes, con cada estructura e insercion
+
 ### Tablas de resultados
+
 Estos fueron los resultados en una de las ejecuciones que se realizaron. 
 
 
@@ -392,26 +404,34 @@ Estos fueron los resultados en una de las ejecuciones que se realizaron.
 | Búsqueda aleatoria en hash        | 0.0016  | 0.0012  | 0.0011  | 0.0013   |
 | Búsqueda ordenada en hash         | 0.0012  | 0.0015  | 0.0021  | 0.0016   |
 
-
 ### Consideraciones generales
+
 Es importante mencionar que el codigo tiene dos main, ya que uno fue hecho para realizar pruebas de insercion aleatoria y ordenada en el BST y el otro fue para hacer las pruebas de la lista doblemente enlazada. Los demas main se dejaron en la carpeta de test.
 
 ### Referencias usadas
 
 - Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. Introduction to Algorithms, IV ed. MIT Press, 2022.
-- GeeksforGeeks. (2022, December 8). Insertion in Binary Search Tree (BST). GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/insertion-in-binary-search-tree/
+- GeeksforGeeks. (2022, Diciembre 8). Insertion in Binary Search Tree (BST). GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/insertion-in-binary-search-tree/
+- GeeksforGeeks. (2018, Febrero 12). Program for hashing with chaining. GeeksforGeeks; GeeksforGeeks. https://www.geeksforgeeks.org/c-program-hashing-chaining/
 
 ### Compilacion
+
 #### ASAN
-```
+
+```sh
 g++ -fsanitize=address *.cpp *.h -o main
 ./main
 ```
+
 #### MEMCHECK
-```
+
+```sh
 g++ -g -o test *.cpp *.h
 valgrind --leak-check=full --show-leak-kinds=all ./test
 ```
+
 ### Creditos 
-- Andres Murillo Murillo 
+
+- Andres Murillo Murillo
+
 - Carnet: C15424

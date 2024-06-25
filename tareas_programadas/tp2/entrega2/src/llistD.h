@@ -1,3 +1,4 @@
+// Copyright [2024] <Copyright Andres Murillo>
 #ifndef llistd_h
 #define llistd_h
 
@@ -177,7 +178,7 @@ public:
      * @return Cadena con el número de carné, identificador de la tarea y etapa.
      */
     std::string ImprimirDatosDeTarea() {
-        return "c15424 Tarea 2 Etapa 1";
+        return "c15424 Tarea 2 Etapa 2";
     }
 };
 
